@@ -1,0 +1,90 @@
+@import "~/src/global.scss";
+
+@mixin headerFont {
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    line-height: 24.2px;
+    color: $dark-color;
+}
+
+@mixin headerSection {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-placeholder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 100%;
+    position: fixed;
+}
+
+.header-container {
+    background: white;
+    width: 90%;
+    height: 66px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    align-items: center;
+    top: 60px;
+    right: 60px;
+
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+    padding: 10px;
+
+    &-left {
+        @include headerSection;
+    }
+
+    &-right {
+        @include headerSection;
+
+        .log-out-text {
+            @include headerFont;
+            color: $error-color;
+            width: 50px;
+        }
+    }
+
+    .menu-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 10px;
+        transition: 0.3s;
+        width: 46px;
+        height: 60px;
+        border-radius: 6px;
+
+        &:hover {
+            background-color: $dark-color;
+
+            .menu-button-text {
+                color: $light-color;
+            }
+        }
+
+        .menu-button-text {
+            @include headerFont;
+        }
+    }
+
+}
+
+a {
+    text-decoration: none;
+    color: $dark-color;
+}
