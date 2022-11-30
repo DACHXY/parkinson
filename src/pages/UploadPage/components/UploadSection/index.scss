@@ -11,6 +11,7 @@ $upload-button-frame-width: 500px;
     align-items: center;
     justify-content: center;
     padding-top: 200px;
+    padding-bottom: 200px;
     width: 100%;
     transition: 0.3s;
 }
@@ -23,6 +24,8 @@ $upload-button-frame-width: 500px;
         background: #fff;
         border-style: dotted;
         border-radius: 16px;
+        padding: 0;
+        border: 0;
         cursor: pointer;
         width: 500px;
         height: 300px;
@@ -36,6 +39,7 @@ $upload-button-frame-width: 500px;
         position: absolute;
         transition: 0.3s;
         z-index: 2;
+        width: 100%;
     }
 }
 
@@ -44,7 +48,7 @@ $upload-button-frame-width: 500px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
     width: 100%;
 
     .reupload-button {
@@ -67,4 +71,28 @@ $upload-button-frame-width: 500px;
     color: #4f4f4f;
     width: 30%;
     height: 30%;
+}
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 0;
+    @include mediumFont();
+    @include shadowDrop(0.1);
+
+    &:hover {
+        box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
+
+    &:active {
+        background-color: #ffbd17;
+        color: #fff;
+    }
 }

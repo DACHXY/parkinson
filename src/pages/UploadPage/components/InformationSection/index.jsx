@@ -21,7 +21,7 @@ function InformationSection() {
   return (
     <div className="information-section">
       <h1>影片資訊</h1>
-      <div className="flex-row">
+      <div className="flex-row selection-frame">
         <section className="left-section">
           <h2 style={{ paddingLeft: 10 }}> 基本資料 </h2>
           <li className="basic-information-list">

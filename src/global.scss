@@ -1,9 +1,13 @@
 $dark-color: #646464;
 $light-color: #ffffff;
-$error-color: #FF3E3E;
+$error-color: #fa5c5c;
 $yellow-color: #ffff66;
 
 .btn-no-style {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     outline: none;

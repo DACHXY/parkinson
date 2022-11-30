@@ -7,6 +7,8 @@ import {
 // component
 import Home from './pages/Homepage';
 import UploadPage from './pages/UploadPage';
+import SignInPage from './pages/AuthPage/SignIn';
+import SignUpPage from './pages/AuthPage/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
   {
     path: '/upload',
     element: <UploadPage />,
+  },
+  {
+    path: '/signin',
+    element: <SignInPage />,
+  },
+  {
+    path: '/signup',
+    element: <SignUpPage />,
   },
 ]);
 

@@ -1,7 +1,7 @@
 @import "~/src/global.scss";
 
 @mixin headerFont {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 20px;
     text-align: center;
     line-height: 24.2px;
@@ -78,7 +78,7 @@
         }
 
         .menu-button-text {
-            @include headerFont;
+            @include headerFont();
         }
     }
 
@@ -101,9 +101,15 @@
             }
         }
 
-        .menu-button-text {
-            @include headerFont;
+        .log-out-text {
+            @include headerFont();
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+
     }
 }
 

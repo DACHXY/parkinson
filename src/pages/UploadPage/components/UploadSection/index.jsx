@@ -68,6 +68,7 @@ function UploadSection() {
           重新選擇檔案
         </button>
         <InformationSection />
+        <button type="button" className="submit-button">送出資料</button>
       </div>
     </div>
   );

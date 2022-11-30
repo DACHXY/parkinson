@@ -1,7 +1,9 @@
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsLogin } from '../../stores/authSlice';
 
 function MenuButton({ children }) {
   return (
@@ -20,6 +22,13 @@ function MenuButtonLogOut({ children }) {
 }
 
 function Header() {
+  const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth);
+
+  const handleLogout = () => {
+    dispatch(setIsLogin(false));
+  };
+
   return (
     <div className="header-placeholder">
       <div className="header-container">
@@ -39,9 +48,18 @@ function Header() {
         </div>
         <div className="header-container-mid"> </div>
         <div className="header-container-right">
-          <MenuButtonLogOut>
-            <button className="btn-no-style"><p className="log-out-text">登出</p></button>
-          </MenuButtonLogOut>
+          {
+            auth.isLogin ? (
+              <MenuButtonLogOut>
+                <button onClick={handleLogout} type="button" className="btn-no-style log-out-text">登出</button>
+              </MenuButtonLogOut>
+            )
+              : (
+                <MenuButton>
+                  <Link to="/signin" className="menu-button-text">登入</Link>
+                </MenuButton>
+              )
+        }
         </div>
       </div>
     </div>
