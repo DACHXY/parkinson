@@ -1,0 +1,30 @@
+@import "~/src/global.scss";
+
+.optional-selection-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    transition: 0.3s;
+    border-radius: 12px;
+    padding: 10px 20px;
+    width: 100%;
+    @include shadowDrop(0.2);
+    @include normalMediumFont();
+    color: #fff;
+}
+
+.optional-seclction-button-frame {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.optional-selection-checked {
+    background-color: green;
+}
+
+.optional-selection-unchecked {
+    background-color: red;
+}

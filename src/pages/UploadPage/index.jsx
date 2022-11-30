@@ -1,15 +1,13 @@
-// 前臂迴旋
-//
-
 import React from 'react';
+import './index.scss';
 
 // component
 import Header from '../../components/Header';
-import UploadSection from './components';
+import UploadSection from './components/UploadSection';
 
 function UploadPage() {
   return (
-    <div>
+    <div className="upload-page">
       <Header />
       <div className="upload-container">
         <UploadSection />

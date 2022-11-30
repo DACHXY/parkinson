@@ -1,0 +1,20 @@
+@import '~/src/global.scss';
+
+.optional-selection-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.left-section {
+    flex-grow: 1;
+}
+
+.right-section {
+    flex-grow: 1;
+}
+
+.information-section {
+    width: 60%;
+}

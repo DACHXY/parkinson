@@ -11,6 +11,14 @@ function MenuButton({ children }) {
   );
 }
 
+function MenuButtonLogOut({ children }) {
+  return (
+    <div className="menu-button-logout">
+      {children}
+    </div>
+  );
+}
+
 function Header() {
   return (
     <div className="header-placeholder">
@@ -20,7 +28,7 @@ function Header() {
             <Link to="/" className="menu-button-text">首頁</Link>
           </MenuButton>
           <MenuButton>
-            <Link to="/" className="menu-button-text">檢測</Link>
+            <Link to="/upload" className="menu-button-text">檢測</Link>
           </MenuButton>
           <MenuButton>
             <Link to="/" className="menu-button-text">紀錄</Link>
@@ -31,9 +39,9 @@ function Header() {
         </div>
         <div className="header-container-mid"> </div>
         <div className="header-container-right">
-          <MenuButton>
+          <MenuButtonLogOut>
             <button className="btn-no-style"><p className="log-out-text">登出</p></button>
-          </MenuButton>
+          </MenuButtonLogOut>
         </div>
       </div>
     </div>
