@@ -12,7 +12,6 @@ const uploadSlice = createSlice({
   reducers: {
     setUploadedFile(state, action) {
       state.filePath = action.payload;
-      console.log(state.filePath);
     },
     removeUploadedFile(state) {
       state.filePath = '';

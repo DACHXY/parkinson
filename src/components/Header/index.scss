@@ -24,13 +24,13 @@
     height: 200px;
     width: 100%;
     position: fixed;
+    z-index: 500 !important;
 }
 
 .header-container {
-    background: white;
+    background: #fff;
     width: 90%;
     height: 66px;
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;

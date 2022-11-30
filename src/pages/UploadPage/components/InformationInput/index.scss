@@ -1,0 +1,32 @@
+@import "~/src/global.scss";
+
+.information-input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 60%;
+
+    span {
+        @include normalMediumFont();
+    }
+
+    input {
+        height: 30px;
+        width: 100%;
+        border-radius: 8px;
+        outline: 0;
+        border: 0.5px solid #4f4f4f;
+        padding: 2px 10px;
+        @include normalFont();
+    }
+}
+
+.information-select {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+        @include normalMediumFont();
+    }
+}

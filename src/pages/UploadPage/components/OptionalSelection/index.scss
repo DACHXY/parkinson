@@ -11,7 +11,8 @@
     width: 100%;
     @include shadowDrop(0.2);
     @include normalMediumFont();
-    color: #fff;
+    font-weight: 600;
+    color: #ffffff;
 }
 
 .optional-seclction-button-frame {
@@ -22,9 +23,13 @@
 }
 
 .optional-selection-checked {
-    background-color: green;
+    background-color: #7bf363;
+    box-shadow: 0 0 2px #fff inset;
+    transition: 0.3s;
 }
 
 .optional-selection-unchecked {
-    background-color: red;
+    background-color: #fff;
+    color: #f75d5d;
+    transition: 0.3s;
 }

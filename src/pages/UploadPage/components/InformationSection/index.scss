@@ -18,3 +18,10 @@
 .information-section {
     width: 60%;
 }
+
+.basic-information-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+}

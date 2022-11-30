@@ -21,10 +21,10 @@ function UploadSection() {
   const HandleChange = (event) => {
     const fileUploaded = event.target.files[0];
     const previewURLCreated = URL.createObjectURL(fileUploaded);
-    console.log(fileSelected);
     setFileSelected(fileUploaded);
     setPreviewURL(previewURLCreated);
     setShowPreview(true);
+    console.log(fileSelected);
   };
 
   return (
