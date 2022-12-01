@@ -12,11 +12,12 @@
     @include normalMediumFont();
     font-weight: 600;
     color: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
 
     &:hover {
         transition: 0.3;
-        @include panel3D();
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        transform: scale(1.115);
     }
 }
 
@@ -29,10 +30,7 @@
 
 .optional-selection-checked {
     background-color: #7bf363;
-    box-shadow: 0 0 2px #fff inset;
     transition: 0.3s;
-
-
 }
 
 .optional-selection-unchecked {
