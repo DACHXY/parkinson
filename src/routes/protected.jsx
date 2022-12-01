@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
-function ProtectedRoute({ next, children }) {
-  const isLogin = useSelector((store) => store.auth.isLogin);
+function ProtectedRoute({ condition, redirectURL, children }) {
   const location = useLocation();
-  if (!isLogin) {
-    return <Navigate to={`/signin?next=${location.pathname}`} replace />;
+  const redirectPath = `${redirectURL}?next=${location.pathname}`;
+  if (!condition()) {
+    return <Navigate to={redirectPath} replace />;
   }
   return children;
 }

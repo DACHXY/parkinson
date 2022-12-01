@@ -3,6 +3,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // component
 import Home from './pages/Homepage';
@@ -13,6 +14,11 @@ import Dashboard from './pages/Dashboard';
 
 // routes
 import ProtectedRoute from './routes/protected';
+
+const isUserLogin = () => {
+  const isLogin = useSelector((store) => store.auth.isLogin);
+  return isLogin;
+};
 
 const router = createBrowserRouter([
   {
@@ -26,7 +32,7 @@ const router = createBrowserRouter([
   {
     path: '/upload',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
         <UploadPage />
       </ProtectedRoute>
     ),
@@ -34,14 +40,16 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
         <Dashboard />
       </ProtectedRoute>
     ),
   },
   {
     path: '/signin',
-    element: <SignInPage />,
+    element: (
+      <SignInPage />
+    ),
   },
   {
     path: '/signup',

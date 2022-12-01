@@ -3,6 +3,7 @@ import { Player } from 'video-react';
 import './index.scss';
 
 // icons
+import axios from 'axios';
 import { Film } from '../../../../components/Icon';
 
 // components
@@ -24,6 +25,23 @@ function UploadSection() {
     setFileSelected(fileUploaded);
     setPreviewURL(previewURLCreated);
     setShowPreview(true);
+  };
+
+  const handleSubmit = () => {
+    const information = {
+      detect: '手指拍打',
+      date: '2022/10/16',
+      location: '家中',
+    };
+
+    const formData = new FormData();
+    formData.append('file', fileSelected);
+    formData.append('information', JSON.stringify(information));
+    axios.post('upload_file', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   };
 
   return (
@@ -67,7 +85,7 @@ function UploadSection() {
           重新選擇檔案
         </button>
         <InformationSection />
-        <button type="button" className="submit-button">送出資料</button>
+        <button type="submit" onClick={handleSubmit} className="submit-button">送出資料</button>
       </div>
     </div>
   );

@@ -2,12 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   filePath: '',
-  filePreviewURL: '',
-  showPreview: false,
 };
 
 const uploadSlice = createSlice({
-  name: 'fileUploaded',
+  name: 'fileUpload',
   initialState,
   reducers: {
     setUploadedFile(state, action) {
