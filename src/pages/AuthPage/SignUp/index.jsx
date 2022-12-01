@@ -3,10 +3,10 @@ import './index.scss';
 
 import Header from '../../../components/Header';
 
-function SignUp() {
+function SignUpPage() {
   return (
     <div><Header /></div>
   );
 }
 
-export default SignUp;
+export default SignUpPage;

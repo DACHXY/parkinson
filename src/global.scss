@@ -1,31 +1,14 @@
 $dark-color: #646464;
 $light-color: #ffffff;
 $error-color: #fa5c5c;
-$yellow-color: #ffff66;
-
-.btn-no-style {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-.flex-col {
-    display: flex;
-    flex-direction: column;
-}
-
-.flex-row {
-    display: flex;
-    flex-direction: row;
-}
+$yellow-color: #ffbd17;
 
 @mixin shadowDrop($shadowInt) {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, $shadowInt);
+}
+
+@mixin panel3D() {
+    box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 @mixin buttonSmall() {
@@ -56,4 +39,50 @@ $yellow-color: #ffff66;
     color: #4f4f4f;
     font-size: 24px;
     font-weight: 600;
+}
+
+.btn-no-style {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background-color: #fff;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 0;
+    @include mediumFont();
+    @include shadowDrop(0.1);
+
+    &:hover {
+        box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
+
+    &:active {
+        background-color: #ffbd17;
+        color: #fff;
+        transform: scale(0.95);
+    }
 }

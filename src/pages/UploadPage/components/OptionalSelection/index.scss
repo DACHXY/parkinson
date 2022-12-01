@@ -9,10 +9,15 @@
     border-radius: 12px;
     padding: 10px 20px;
     width: 100%;
-    @include shadowDrop(0.2);
     @include normalMediumFont();
     font-weight: 600;
     color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
+    &:hover {
+        transition: 0.3;
+        @include panel3D();
+    }
 }
 
 .optional-seclction-button-frame {
@@ -26,6 +31,8 @@
     background-color: #7bf363;
     box-shadow: 0 0 2px #fff inset;
     transition: 0.3s;
+
+
 }
 
 .optional-selection-unchecked {

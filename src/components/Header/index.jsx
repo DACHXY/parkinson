@@ -50,9 +50,14 @@ function Header() {
         <div className="header-container-right">
           {
             auth.isLogin ? (
-              <MenuButtonLogOut>
-                <button onClick={handleLogout} type="button" className="btn-no-style log-out-text">登出</button>
-              </MenuButtonLogOut>
+              <>
+                <MenuButton>
+                  <Link to="/signin" className="menu-button-text">個人</Link>
+                </MenuButton>
+                <MenuButtonLogOut>
+                  <Link onClick={handleLogout} to="/signin" className="log-out-text">登出</Link>
+                </MenuButtonLogOut>
+              </>
             )
               : (
                 <MenuButton>

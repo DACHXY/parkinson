@@ -72,27 +72,3 @@ $upload-button-frame-width: 500px;
     width: 30%;
     height: 30%;
 }
-
-.submit-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background-color: #fff;
-    padding: 10px 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    border: 0;
-    @include mediumFont();
-    @include shadowDrop(0.1);
-
-    &:hover {
-        box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-    }
-
-    &:active {
-        background-color: #ffbd17;
-        color: #fff;
-    }
-}

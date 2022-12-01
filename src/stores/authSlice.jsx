@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   username: '',
   sessionToken: '',
-  isLogin: false,
+  isLogin: true,
 };
 
 const authSlice = createSlice({
