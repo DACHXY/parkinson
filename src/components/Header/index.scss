@@ -63,6 +63,7 @@
         transition: 0.3s;
         height: 60px;
         border-radius: 6px;
+        cursor: pointer;
 
         &:hover {
             background-color: $dark-color;

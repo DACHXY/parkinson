@@ -9,6 +9,10 @@ import Home from './pages/Homepage';
 import UploadPage from './pages/UploadPage';
 import SignInPage from './pages/AuthPage/SignIn';
 import SignUpPage from './pages/AuthPage/SignUp';
+import Dashboard from './pages/Dashboard';
+
+// routes
+import ProtectedRoute from './routes/protected';
 
 const router = createBrowserRouter([
   {
@@ -16,8 +20,24 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: '/home',
+    element: <Home />,
+  },
+  {
     path: '/upload',
-    element: <UploadPage />,
+    element: (
+      <ProtectedRoute>
+        <UploadPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/signin',

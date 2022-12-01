@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import './index.scss';
 
 import Header from '../../../components/Header';
 import AuthInputBar from '../components/inputbar';
 
+import { setIsLogin, setUsername } from '../../../stores/authSlice';
+
 function SignInPage() {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    console.log(account, password);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    dispatch(setIsLogin(true));
+    dispatch(setUsername(account));
+    navigate(searchParams.get('next') ? searchParams.get('next') : '/');
   };
 
   return (

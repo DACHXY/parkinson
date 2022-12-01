@@ -21,7 +21,9 @@
 }
 
 .information-section {
-    width: 80%;
+    transition: 0.3s;
+    min-width: 45%;
+    max-width: 60%;
 }
 
 .basic-information-list {

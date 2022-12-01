@@ -24,7 +24,6 @@ function UploadSection() {
     setFileSelected(fileUploaded);
     setPreviewURL(previewURLCreated);
     setShowPreview(true);
-    console.log(fileSelected);
   };
 
   return (
@@ -38,7 +37,7 @@ function UploadSection() {
           <div>
             <Film className="upload-icon" />
           </div>
-          點擊上傳影片
+          <div className="upload-text">點擊上傳影片</div>
         </button>
         {previewURL && (
         <Player
@@ -60,7 +59,7 @@ function UploadSection() {
       </div>
       <div className="lower-upload-section">
         <button
-          className="reupload-button"
+          className="reupload-button submit-button"
           type="button"
           disabled={!showPreview}
           onClick={HandleSelectFile}

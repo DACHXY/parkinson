@@ -3,17 +3,17 @@
 
 $upload-button-frame-width: 500px;
 
-@keyframes uploadHoverAnimation {
+@keyframes uploadHoverUpDownAnimation {
     0% {
-        -webkit-transform: translate(0em, 0em);
+        -webkit-transform: translate(0, 0);
     }
 
     40% {
-        -webkit-transform: translate(0em, -1em);
+        -webkit-transform: translate(0, -20px);
     }
 
     100% {
-        -webkit-transform: translate(0em, 0em);
+        -webkit-transform: translate(0, 0);
     }
 }
 
@@ -56,15 +56,13 @@ $upload-button-frame-width: 500px;
             transition: 0.3s;
 
             .upload-icon {
-                animation: uploadHoverAnimation 0.3s ease-in-out;
+                animation: uploadHoverUpDownAnimation 0.3s backwards;
             }
         }
 
         &:active {
             transform: scale(0.95);
             transition: 0.3s;
-
-
         }
     }
 

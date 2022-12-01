@@ -3,13 +3,15 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLogin } from '../../stores/authSlice';
+import { signOut } from '../../stores/authSlice';
 
-function MenuButton({ children }) {
+function MenuButton({ text, url, onClick }) {
   return (
-    <div className="menu-button">
-      {children}
-    </div>
+    <Link onClick={onClick} to={url} className="menu-button">
+      <span className="menu-button-text">
+        {text}
+      </span>
+    </Link>
   );
 }
 
@@ -25,44 +27,38 @@ function Header() {
   const dispatch = useDispatch();
   const auth = useSelector((store) => store.auth);
 
+  const HeaderLeftItems = [
+    { text: '首頁', url: '/', key: 0 },
+    { text: '檢測', url: '/upload', key: 1 },
+    { text: '紀錄', url: '/', key: 2 },
+    { text: '關於', url: '/', key: 3 },
+  ];
+
   const handleLogout = () => {
-    dispatch(setIsLogin(false));
+    dispatch(signOut());
   };
 
   return (
     <div className="header-placeholder">
       <div className="header-container">
         <div className="header-container-left">
-          <MenuButton>
-            <Link to="/" className="menu-button-text">首頁</Link>
-          </MenuButton>
-          <MenuButton>
-            <Link to="/upload" className="menu-button-text">檢測</Link>
-          </MenuButton>
-          <MenuButton>
-            <Link to="/" className="menu-button-text">紀錄</Link>
-          </MenuButton>
-          <MenuButton>
-            <Link to="/" className="menu-button-text">關於</Link>
-          </MenuButton>
+          {HeaderLeftItems.map(
+            (item) => <MenuButton key={item.key} url={item.url} text={item.text} />,
+          )}
         </div>
         <div className="header-container-mid"> </div>
         <div className="header-container-right">
           {
             auth.isLogin ? (
               <>
-                <MenuButton>
-                  <Link to="/signin" className="menu-button-text">個人</Link>
-                </MenuButton>
+                <MenuButton url="/dashboard" text={auth.username} />
                 <MenuButtonLogOut>
                   <Link onClick={handleLogout} to="/signin" className="log-out-text">登出</Link>
                 </MenuButtonLogOut>
               </>
             )
               : (
-                <MenuButton>
-                  <Link to="/signin" className="menu-button-text">登入</Link>
-                </MenuButton>
+                <MenuButton url="/signin" text="登入" />
               )
         }
         </div>
