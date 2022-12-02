@@ -6,7 +6,8 @@ import './index.scss';
 import Header from '../../../components/Header';
 import AuthInputBar from '../components/inputbar';
 
-import { setIsLogin, setUsername } from '../../../stores/authSlice';
+import { setIsLogin, setUsername, setSessionToken } from '../../../stores/authSlice';
+import { formDataRequest } from '../../../axios';
 
 function SignInPage() {
   const [account, setAccount] = useState('');
@@ -14,12 +15,24 @@ function SignInPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [errMessage, setErrMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(setIsLogin(true));
-    dispatch(setUsername(account));
-    navigate(searchParams.get('next') ? searchParams.get('next') : '/');
+    setErrMessage('');
+    const formData = new FormData();
+    formData.append('username', account);
+    formData.append('password', password);
+    formDataRequest.post('/auth/jwt/token', formData)
+      .then((res) => {
+        dispatch(setSessionToken(res.data.access_token));
+        dispatch(setIsLogin(true));
+        navigate(searchParams.get('next') ? searchParams.get('next') : '/');
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrMessage('帳號或密碼錯誤');
+      });
   };
 
   return (
@@ -29,7 +42,8 @@ function SignInPage() {
         <div className="panel">
           <h1 style={{ color: '#3f3f3f' }}>登入帳號</h1>
           <section className="auth-information-section">
-            <Link className="alternative-link" to="/signup">還沒有帳號?</Link>
+            <div className="error-message">{errMessage}</div>
+            <Link className="alternative-link" to="/signup?next=/upload">還沒有帳號?</Link>
             <AuthInputBar text="帳號" type="text" setState={[account, setAccount]} />
             <AuthInputBar text="密碼" type="password" setState={[password, setPassword]} />
           </section>

@@ -1,18 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { Player } from 'video-react';
 import './index.scss';
+import { useSelector } from 'react-redux';
 
 // icons
-import axios from 'axios';
 import { Film } from '../../../../components/Icon';
 
 // components
 import InformationSection from '../InformationSection';
+import { formDataRequest } from '../../../../axios';
 
 function UploadSection() {
   const [fileSelected, setFileSelected] = useState(null);
   const [previewURL, setPreviewURL] = useState('');
   const [showPreview, setShowPreview] = useState(false);
+  const sessionToken = useSelector((store) => store.auth.sessionToken);
   const hiddenFileInput = useRef(null);
 
   const HandleSelectFile = () => {
@@ -32,12 +34,13 @@ function UploadSection() {
       detect: '手指拍打',
       date: '2022/10/16',
       location: '家中',
+      access_token: sessionToken,
     };
 
     const formData = new FormData();
     formData.append('file', fileSelected);
     formData.append('information', JSON.stringify(information));
-    axios.post('upload_file', formData, {
+    formDataRequest.post('/video/uploadFile/fake', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
