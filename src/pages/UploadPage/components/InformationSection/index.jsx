@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
 
 // components
 import OptionalSelection from '../OptionalSelection';
 import { InformationInput } from '../InformationInput';
+import { ACTION } from '../UploadSection/reducer';
 
-function InformationSection() {
+function InformationSection({ reducer }) {
   const [detect, setDetection] = useState([false, false, false, false]);
+  const [state, dispatch] = reducer;
 
   const selections = [
     { text: '手指拍打', key: 0 },
@@ -17,6 +19,21 @@ function InformationSection() {
 
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+
+  useEffect(() => {
+    setDate(state.date);
+  }, []);
+
+  useEffect(() => {
+    dispatch({
+      type: ACTION.setReducer,
+      payload: {
+        ...state, date, location, name, gender,
+      },
+    });
+  }, [date, location, name, gender]);
 
   return (
     <div className="information-section">
@@ -25,9 +42,9 @@ function InformationSection() {
         <section className="left-section">
           <h2 style={{ paddingLeft: 10 }}> 基本資料 </h2>
           <li className="basic-information-list">
-            <InformationInput text="姓名" type="text" setState={[date, setDate]} />
-            <InformationInput text="性別" type="text" setState={[date, setDate]} />
-            <InformationInput text="拍攝日期" type="date" setState={[date, setDate]} />
+            <InformationInput text="姓名" type="text" setState={[name, setName]} />
+            <InformationInput text="性別" type="text" setState={[gender, setGender]} />
+            <InformationInput text="拍攝日期" type="datetime-local" setState={[date, setDate]} />
             <InformationInput text="地點" type="text" setState={[location, setLocation]} />
           </li>
         </section>
@@ -39,6 +56,7 @@ function InformationSection() {
                 <OptionalSelection
                   text={item.text}
                   key={item.key}
+                  reducer={[state, dispatch]}
                   setState={[detect, setDetection]}
                   index={item.key}
                 />

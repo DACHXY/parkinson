@@ -1,8 +1,12 @@
 import './index.scss';
 import React, { useState, useEffect } from 'react';
+import { ACTION } from '../UploadSection/reducer';
 
-function OptionalSelection({ text, setState, index }) {
+function OptionalSelection({
+  text, setState, index, reducer,
+}) {
   const [value, setValue] = setState;
+  const [state, dispatch] = reducer;
   const [checkedStatus, setCheckedStatus] = useState(value[text]);
   const status = { checked: 'optional-selection-checked', unchecked: 'optional-selection-unchecked' };
 
@@ -17,6 +21,7 @@ function OptionalSelection({ text, setState, index }) {
 
   useEffect(() => {
     setCheckedStatus(value[index]);
+    dispatch({ type: ACTION.setDetect, payload: text });
   }, [value]);
 
   return (

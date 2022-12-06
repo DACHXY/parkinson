@@ -3,16 +3,20 @@ import Select from 'react-dropdown-select';
 
 import './index.scss';
 
-export function InformationInput({ text, type, setState }) {
+export function InformationInput({
+  text, type, setState, ref,
+}) {
   const [value, setValue] = setState;
   return (
-    <div className="information-input">
+    <div className="information-input" ref={ref}>
       <span>{text}</span>
-      <input
-        type={type}
-        onChange={(event) => setValue(event.target.value)}
-        value={value}
-      />
+      <div className="input-frame">
+        <input
+          type={type}
+          onChange={(event) => setValue(event.target.value)}
+          value={value}
+        />
+      </div>
     </div>
   );
 }

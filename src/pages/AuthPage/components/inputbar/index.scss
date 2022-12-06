@@ -5,11 +5,13 @@
     padding: 6px 10px;
     border-radius: 10px;
     width: calc(100% - 22px);
+    height: 2em;
     border: 0.5px solid rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 
     &:focus {
         @include shadowDrop(0.2);
+        border: 0.5px solid rgba(0, 0, 0, 0);
         transition: 0.3s;
     }
 }
@@ -18,7 +20,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     width: 80%;
     gap: 10px;
 }

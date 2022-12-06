@@ -2,6 +2,17 @@ $dark-color: #646464;
 $light-color: #ffffff;
 $error-color: #fa5c5c;
 $yellow-color: #ffbd17;
+$succecced-color: #a6fa58;
+
+@keyframes LoadingBorder {
+    0% {
+        outline-offset: 0px;
+    }
+
+    100% {
+        outline-offset: 20px;
+    }
+}
 
 @mixin shadowDrop($shadowInt) {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, $shadowInt);
@@ -39,6 +50,8 @@ $yellow-color: #ffbd17;
     font-size: 24px;
     font-weight: 600;
 }
+
+
 
 .btn-no-style {
     padding: 0;
@@ -86,5 +99,11 @@ $yellow-color: #ffbd17;
             color: #fff;
             transform: scale(0.95);
         }
+    }
+
+    &:disabled {
+        cursor: default;
+        @include shadowDrop(0);
+        color: #8f8f8f;
     }
 }

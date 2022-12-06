@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useReducer } from 'react';
 import { Player } from 'video-react';
 import './index.scss';
 import { useSelector } from 'react-redux';
@@ -10,10 +10,16 @@ import { Film } from '../../../../components/Icon';
 import InformationSection from '../InformationSection';
 import { formDataRequest } from '../../../../axios';
 
+// reducer
+import reducer, { initialState } from './reducer';
+import SubmitButtonLoading from '../../../../components/Button';
+
 function UploadSection() {
+  const [state, uploadDispatch] = useReducer(reducer, initialState);
   const [fileSelected, setFileSelected] = useState(null);
   const [previewURL, setPreviewURL] = useState('');
   const [showPreview, setShowPreview] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
   const sessionToken = useSelector((store) => store.auth.sessionToken);
   const hiddenFileInput = useRef(null);
 
@@ -29,22 +35,52 @@ function UploadSection() {
     setShowPreview(true);
   };
 
-  const handleSubmit = () => {
-    const information = {
-      detect: '手指拍打',
-      date: '2022/10/16',
-      location: '家中',
-      access_token: sessionToken,
-    };
+  const submitGate = () => {
+    if (!fileSelected) {
+      return false;
+    }
+    if (!state.detect) {
+      return false;
+    }
+    if (!state.location) {
+      return false;
+    }
+    if (!state.gender) {
+      return false;
+    }
+    if (!state.name) {
+      return false;
+    }
+    if (!state.date) {
+      return false;
+    }
+    return true;
+  };
 
-    const formData = new FormData();
-    formData.append('file', fileSelected);
-    formData.append('information', JSON.stringify(information));
-    formDataRequest.post('/video/uploadFile/fake', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+  const handleSubmit = () => {
+    if (!submitGate()) {
+      setSubmitDisabled(true);
+      const information = {
+        name: state.name,
+        gender: state.gender,
+        detect: state.detect,
+        date: state.date,
+        location: state.location,
+        access_token: sessionToken,
+      };
+      const formData = new FormData();
+      formData.append('file', fileSelected);
+      formData.append('information', JSON.stringify(information));
+      formDataRequest.post('/video/uploadFile/fake', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }).then((res) => {
+        setSubmitDisabled(false);
+      }).catch((err) => {
+        setSubmitDisabled(false);
+      });
+    }
   };
 
   return (
@@ -72,7 +108,7 @@ function UploadSection() {
         )}
         <input
           type="file"
-          accept=".mp4"
+          accept=".mp4, .avi"
           ref={hiddenFileInput}
           onChange={HandleChange}
           style={{ display: 'none' }}
@@ -87,8 +123,13 @@ function UploadSection() {
         >
           重新選擇檔案
         </button>
-        <InformationSection />
-        <button type="submit" onClick={handleSubmit} className="submit-button">送出資料</button>
+        <InformationSection reducer={[state, uploadDispatch]} />
+        <SubmitButtonLoading
+          disabled={submitDisabled}
+          onClick={handleSubmit}
+        >
+          送出資料
+        </SubmitButtonLoading>
       </div>
     </div>
   );

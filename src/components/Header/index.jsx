@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../stores/authSlice';
@@ -26,6 +26,7 @@ function MenuButtonLogOut({ children }) {
 function Header() {
   const dispatch = useDispatch();
   const auth = useSelector((store) => store.auth);
+  const navigate = useNavigate();
 
   const HeaderLeftItems = [
     { text: '首頁', url: '/', key: 0 },
@@ -36,6 +37,7 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(signOut());
+    navigate('/signin');
   };
 
   return (
