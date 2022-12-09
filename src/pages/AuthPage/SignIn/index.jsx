@@ -20,19 +20,23 @@ function SignInPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrMessage('');
-    const formData = new FormData();
-    formData.append('username', account);
-    formData.append('password', password);
-    formDataRequest.post('/auth/jwt/token', formData)
-      .then((res) => {
-        dispatch(setSessionToken(res.data.access_token));
-        dispatch(setIsLogin(true));
-        navigate(searchParams.get('next') ? searchParams.get('next') : '/');
-      })
-      .catch((err) => {
-        console.log(err);
-        setErrMessage('帳號或密碼錯誤');
-      });
+
+    // test
+    dispatch(setIsLogin(true));
+
+    // const formData = new FormData();
+    // formData.append('username', account);
+    // formData.append('password', password);
+    // formDataRequest.post('/auth/jwt/token', formData)
+    //   .then((res) => {
+    //     dispatch(setSessionToken(res.data.access_token));
+    //     dispatch(setIsLogin(true));
+    //     navigate(searchParams.get('next') ? searchParams.get('next') : '/');
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setErrMessage('帳號或密碼錯誤');
+    //   });
   };
 
   return (
