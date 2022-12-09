@@ -16,11 +16,11 @@ import {
 function SignUpPage() {
   const passwordLengthLimit = 6;
   const usernameLengthLimit = 4;
-  const [account, setAccount] = useState();
-  const [password, setPassword] = useState();
-  const [submitDisable, setSubmitDisable] = useState();
+  const [account, setAccount] = useState('');
+  const [password, setPassword] = useState('');
+  const [submitDisable, setSubmitDisable] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [passwordAgain, setPasswordAgain] = useState();
+  const [passwordAgain, setPasswordAgain] = useState('');
   const [errMessage, setErrMessage] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,6 +56,7 @@ function SignUpPage() {
       const formData = new FormData();
       formData.append('username', account);
       formData.append('password', password);
+      formDataRequest.defaults.timeout = 2500;
       formDataRequest.post('/auth/signup', formData)
         .then((res) => {
           dispatch(setSessionToken(res.data.access_token));
@@ -64,9 +65,10 @@ function SignUpPage() {
           navigate(searchParams.get('next') ? searchParams.get('next') : '/');
         })
         .catch((err) => {
-          if (err.response.data.detail) {
+          if (err.response?.data.detail) {
             setErrMessage(err.response.data.detail);
-          } else {
+          }
+          if (err.message.includes('timeout')) {
             setErrMessage('伺服器未回應');
           }
           setSubmitDisable(false);

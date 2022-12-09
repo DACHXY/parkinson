@@ -38,6 +38,7 @@ function SignInPage() {
       const formData = new FormData();
       formData.append('username', account);
       formData.append('password', password);
+      formDataRequest.defaults.timeout = 2500;
       formDataRequest.post('/auth/jwt/token', formData)
         .then((res) => {
           dispatch(setSessionToken(res.data.access_token));
@@ -45,7 +46,13 @@ function SignInPage() {
           navigate(searchParams.get('next') ? searchParams.get('next') : '/');
         })
         .catch((err) => {
-          setErrMessage('帳號或密碼錯誤 或 伺服器未回應');
+          console.log(err);
+          if (err.message.includes('timeout')) {
+            setErrMessage('伺服器未回應');
+          }
+          if (err.message.includes('password')) {
+            setErrMessage('帳號或密碼錯誤');
+          }
           setSubmitDisable(false);
         });
     }
