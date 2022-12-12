@@ -1,15 +1,14 @@
 import React, { useRef, useState, useReducer } from 'react';
 import { Player } from 'video-react';
 import './index.scss';
-import { useSelector } from 'react-redux';
 
 // icons
+import { useSelector } from 'react-redux';
 import { Film } from '../../../../components/Icon';
 
 // components
 import InformationSection from '../InformationSection';
 import { formDataRequest } from '../../../../axios';
-
 // reducer
 import reducer, { initialState } from './reducer';
 import SubmitButtonLoading from '../../../../components/Button';
@@ -20,8 +19,8 @@ function UploadSection() {
   const [previewURL, setPreviewURL] = useState('');
   const [showPreview, setShowPreview] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
-  const sessionToken = useSelector((store) => store.auth.sessionToken);
   const hiddenFileInput = useRef(null);
+  const sessionToken = useSelector((store) => store.auth.sessionToken);
 
   const HandleSelectFile = () => {
     hiddenFileInput.current.click();
@@ -58,7 +57,7 @@ function UploadSection() {
   };
 
   const handleSubmit = () => {
-    if (!submitGate()) {
+    if (submitGate()) {
       setSubmitDisabled(true);
       const information = {
         name: state.name,
@@ -66,20 +65,20 @@ function UploadSection() {
         detect: state.detect,
         date: state.date,
         location: state.location,
-        access_token: sessionToken,
       };
       const formData = new FormData();
       formData.append('file', fileSelected);
       formData.append('information', JSON.stringify(information));
       formDataRequest.post('/video/uploadFile/fake', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${sessionToken}`,
         },
-      }).then((res) => {
-        setSubmitDisabled(false);
-      }).catch((err) => {
-        setSubmitDisabled(false);
-      });
+      })
+        .then((res) => {
+          setSubmitDisabled(false);
+        }).catch((err) => {
+          setSubmitDisabled(false);
+        });
     }
   };
 

@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import './index.scss';
 
@@ -7,8 +7,8 @@ import Header from '../../../components/Header';
 import AuthInputBar from '../components/inputbar';
 import SubmitButtonLoading from '../../../components/Button';
 
-import { setIsLogin, setUsername, setSessionToken } from '../../../stores/authSlice';
-import { formDataRequest } from '../../../axios';
+import { setIsLogin, setSessionToken } from '../../../stores/authSlice';
+import { formDataRequestNoAuth } from '../../../axios';
 
 function SignInPage() {
   const [account, setAccount] = useState('');
@@ -18,6 +18,7 @@ function SignInPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errMessage, setErrMessage] = useState();
+  const sessionToken = useSelector((store) => store.auth.sessionToken);
 
   const submitGate = () => {
     if (!account) {
@@ -38,8 +39,7 @@ function SignInPage() {
       const formData = new FormData();
       formData.append('username', account);
       formData.append('password', password);
-      formDataRequest.defaults.timeout = 2500;
-      formDataRequest.post('/auth/jwt/token', formData)
+      formDataRequestNoAuth.post('/auth/jwt/token', formData)
         .then((res) => {
           dispatch(setSessionToken(res.data.access_token));
           dispatch(setIsLogin(true));
@@ -50,7 +50,7 @@ function SignInPage() {
           if (err.message.includes('timeout')) {
             setErrMessage('伺服器未回應');
           }
-          if (err.message.includes('password')) {
+          if (err.message.includes('401')) {
             setErrMessage('帳號或密碼錯誤');
           }
           setSubmitDisable(false);

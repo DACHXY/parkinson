@@ -11,6 +11,7 @@ import UploadPage from './pages/UploadPage';
 import SignInPage from './pages/AuthPage/SignIn';
 import SignUpPage from './pages/AuthPage/SignUp';
 import Dashboard from './pages/Dashboard';
+import HistoryPage from './pages/HistoryPage';
 
 // routes
 import ProtectedRoute from './routes/protected';
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
         <UploadPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/history',
+    element: (
+      <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
+        <HistoryPage />
       </ProtectedRoute>
     ),
   },

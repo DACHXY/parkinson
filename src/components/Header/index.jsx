@@ -29,9 +29,9 @@ function Header() {
   const navigate = useNavigate();
 
   const HeaderLeftItems = [
-    { text: '首頁', url: '/', key: 0 },
+    { text: '首頁', url: '/home', key: 0 },
     { text: '檢測', url: '/upload', key: 1 },
-    { text: '紀錄', url: '/', key: 2 },
+    { text: '紀錄', url: '/history', key: 2 },
     { text: '關於', url: '/', key: 3 },
   ];
 

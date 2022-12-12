@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './index.scss';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { formDataRequest } from '../../../axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { formDataRequestNoAuth } from '../../../axios';
 
 import Header from '../../../components/Header';
 import AuthInputBar from '../components/inputbar';
@@ -10,7 +10,7 @@ import SubmitButtonLoading from '../../../components/Button';
 
 // dispatch
 import {
-  setIsLogin, setUsername, setUserId, setSessionToken,
+  setIsLogin, setUsername, setSessionToken,
 } from '../../../stores/authSlice';
 
 function SignUpPage() {
@@ -24,6 +24,7 @@ function SignUpPage() {
   const [errMessage, setErrMessage] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const sessionToken = useSelector((store) => store.auth.sessionToken);
 
   const submitGate = () => {
     if (!account) {
@@ -56,8 +57,7 @@ function SignUpPage() {
       const formData = new FormData();
       formData.append('username', account);
       formData.append('password', password);
-      formDataRequest.defaults.timeout = 2500;
-      formDataRequest.post('/auth/signup', formData)
+      formDataRequestNoAuth.post('/auth/signup', formData)
         .then((res) => {
           dispatch(setSessionToken(res.data.access_token));
           dispatch(setUsername(account));
