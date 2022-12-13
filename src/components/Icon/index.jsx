@@ -35,3 +35,13 @@ export function Music({ className }) {
     </svg>
   );
 }
+
+export function Filter({ className }) {
+  return (
+    <svg className={`${className && className}`} width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M23.8333 3.25H2.16663L10.8333 13.4983V20.5833L15.1666 22.75V13.4983L23.8333 3.25Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M18 20H24" stroke="currentColor" strokeWidth="2" strokeMiterlimit="16" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M21 17V23" stroke="currentColor" strokeWidth="2" strokeMiterlimit="16" strokeLinecap="round" />
+    </svg>
+  );
+}

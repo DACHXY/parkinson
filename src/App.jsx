@@ -15,6 +15,7 @@ import HistoryPage from './pages/HistoryPage';
 
 // routes
 import ProtectedRoute from './routes/protected';
+import HistoryItemPage from './pages/HistoryPage/HistoryItemPage';
 
 const isUserLogin = () => {
   const isLogin = useSelector((store) => store.auth.isLogin);
@@ -39,6 +40,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/history/:id',
+    element: (
+      <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
+        <HistoryItemPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: '/history',
     element: (
       <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
@@ -46,6 +55,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+
   {
     path: '/dashboard',
     element: (

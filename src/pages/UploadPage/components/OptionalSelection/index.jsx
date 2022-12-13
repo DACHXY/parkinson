@@ -21,7 +21,9 @@ function OptionalSelection({
 
   useEffect(() => {
     setCheckedStatus(value[index]);
-    dispatch({ type: ACTION.setDetect, payload: text });
+    if (value[index]) {
+      dispatch({ type: ACTION.setDetect, payload: text });
+    }
   }, [value]);
 
   return (
