@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ function ResultItem({ item }) {
         </div>
         <div className="result-item-information-right">
           <div className="result-item-detct">{item.detect}</div>
-          <div className="result-item-video_id">{`serial: ${item.video_id}`}</div>
+          <div className="result-item-video_id">{`id: ${item.video_id}`}</div>
         </div>
       </div>
     </Link>
@@ -25,8 +25,12 @@ function ResultItem({ item }) {
 }
 
 function HistoryPage() {
-  const sessionToken = useSelector((store) => store.auth.sessionToken);
-  const [filterItems, setFilterItems] = useState([]);
+  const filterSelect = useRef();
+  const [filterItems, setFilterItems] = useState({
+    '受試者': [],
+    '日期': [],
+    '檢測項目': [],
+  });
   const [searchParams, setSearchParams] = useSearchParams();
   const [popUpState, setPopUpState] = useState(false);
 
@@ -106,8 +110,9 @@ function HistoryPage() {
           <h3>過濾器</h3>
         </div>
         <div className="filter-selector-content">
-          <div className="filter-selector-content-left">left</div>
-          <div className="filter-selector-content-right">right</div>
+          <select style={{ display: 'none' }} ref={filterSelect}>
+            {Object.keys(filterItems).map((key) => <option>{key}</option>)}
+          </select>
         </div>
         <div className="filter-selector-button">
           <button onClick={handleFilterApply} type="button">Apply Filter</button>
