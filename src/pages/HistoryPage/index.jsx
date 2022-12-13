@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import { Filter } from '../../components/Icon';
+import PopUp from '../../components/PopUp';
 
-function ResultItem({ item, status }) {
+function ResultItem({ item }) {
   return (
-    <Link className={`result-item ${status}`} to={`${item.video_id}`}>
+    <Link className="result-item" to={`${item.video_id}`}>
       <img className="result-item-thumbnail" src={item.thumbnail} alt="Thumbnail" />
       <div className="result-item-information">
         <div className="result-item-information-left">
@@ -27,9 +28,14 @@ function HistoryPage() {
   const sessionToken = useSelector((store) => store.auth.sessionToken);
   const [filterItems, setFilterItems] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [popUpState, setPopUpState] = useState(false);
 
-  function onFilterClick() {
+  function handleFilterClick() {
+    setPopUpState(true);
+  }
 
+  function handleFilterApply() {
+    setPopUpState(false);
   }
 
   const resultList = [
@@ -47,18 +53,75 @@ function HistoryPage() {
       subject: '龍哥',
       date: '2022-10-23',
     },
+    {
+      video_id: '27422aa912381kjxcls',
+      thumbnail: 'https://i.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4',
+      detect: '尊敬你ㄟ',
+      subject: '龍哥',
+      date: '2022-10-23',
+    },
+    {
+      video_id: '27422cs912381kjxcls',
+      thumbnail: 'https://i.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4',
+      detect: '尊敬你ㄟ',
+      subject: '龍哥',
+      date: '2022-10-23',
+    },
+    {
+      video_id: '27422as912381kjxcls',
+      thumbnail: 'https://i.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4',
+      detect: '尊敬你ㄟ',
+      subject: '龍哥',
+      date: '2022-10-23',
+    },
+    {
+      video_id: '27422bs912381kjxcls',
+      thumbnail: 'https://i.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4',
+      detect: '尊敬你ㄟ',
+      subject: '龍哥',
+      date: '2022-10-23',
+    },
+    {
+      video_id: '27422ls912381kjxcls',
+      thumbnail: 'https://i.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4',
+      detect: '尊敬你ㄟ',
+      subject: '龍哥',
+      date: '2022-10-23',
+    },
+    {
+      video_id: '27422sk912381kjxcls',
+      thumbnail: 'https://i.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4',
+      detect: '尊敬你ㄟ',
+      subject: '龍哥',
+      date: '2022-10-23',
+    },
   ];
 
   return (
     <div>
+      {popUpState
+      && (
+      <PopUp>
+        <div className="filter-selector-title">
+          <h3>過濾器</h3>
+        </div>
+        <div className="filter-selector-content">
+          <div className="filter-selector-content-left">left</div>
+          <div className="filter-selector-content-right">right</div>
+        </div>
+        <div className="filter-selector-button">
+          <button onClick={handleFilterApply} type="button">Apply Filter</button>
+          <button onClick={() => setPopUpState(false)} type="button">cancel</button>
+        </div>
+      </PopUp>
+      )}
       <Header />
       <div className="history-frame">
         <h1 className="history-title">檢測紀錄</h1>
         <div className="history-filter-section">
-          <button type="button" className="history-filter-button">
+          <button onClick={handleFilterClick} type="button" className="history-filter-button">
             <Filter className="history-filter-icon" />
-            過濾
-            <input type="text" className="history-filter-input" />
+            過濾器
           </button>
           <div className="history-filter-items" />
         </div>

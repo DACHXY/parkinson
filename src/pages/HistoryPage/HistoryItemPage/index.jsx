@@ -1,15 +1,24 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
+import { jsonRequest } from '../../../axios';
 import './index.scss';
+import Header from '../../../components/Header';
 
-export function HistroyItemLoader() {
-
+export async function HistroyItemLoader({ params }) {
+  const { id } = params;
+  const historyItemResult = await jsonRequest.get(`history/${id}`);
+  if (!historyItemResult.ok) throw new Error('History data fetch error');
+  const historyItemData = await historyItemResult.json();
+  return { historyItemData };
 }
 
 function HistoryItemPage() {
-  const { id } = useParams();
+  const { historyItemData } = useLoaderData();
   return (
-    <div>{`HistoryItemPage ${id}`}</div>
+    <div>
+      <Header />
+      <div>{`HistoryItemPage ${JSON.stringify(historyItemData)}`}</div>
+    </div>
   );
 }
 

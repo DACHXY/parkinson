@@ -33,6 +33,16 @@
     border-radius: 10px;
     box-shadow: 0;
     transition: 0.3s;
+
+    &:hover {
+        transform: scale(1.1);
+        @include shadowDrop(0.3);
+    }
+
+    &:active {
+        transform: scale(1);
+        @include shadowDrop(0);
+    }
 }
 
 .history-filter-input {
@@ -72,7 +82,7 @@
         @include shadowDrop(0.2);
         border-bottom: transparentize($color: #000, $amount: 1) 1px solid;
         transition: 0.3s;
-        z-index: 10;
+        z-index: 2;
         transform: scale(1.01);
         border-radius: 10px;
         height: 180px;
@@ -144,4 +154,52 @@
     font-size: 1.6em;
     font-family: monospace;
     color: #8f8f8f;
+}
+
+.filter-selector-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    flex-grow: 1;
+    padding: 10px 20px;
+    width: calc(100% - 40px);
+
+    &-left {
+        flex-grow: 1;
+    }
+
+    &-right {
+        flex-grow: 1;
+    }
+}
+
+.filter-selector-button {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    padding: 40px 20px;
+
+    & button {
+        outline: none;
+        background-color: #fff;
+        border: transparentize($color: #000000, $amount: 1) solid 1px;
+        padding: 10px 20px;
+        border-radius: 12px;
+        transition: 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            transition: 0.3s;
+            border: transparentize($color: #000000, $amount: 0.7) solid 1px;
+        }
+
+        &:active {
+            transform: scale(0.95);
+            color: #8f8f8f;
+        }
+    }
 }
