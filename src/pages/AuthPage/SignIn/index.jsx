@@ -46,7 +46,6 @@ function SignInPage() {
           navigate(searchParams.get('next') ? searchParams.get('next') : '/');
         })
         .catch((err) => {
-          console.log(err);
           if (err.message.includes('timeout')) {
             setErrMessage('伺服器未回應');
           }

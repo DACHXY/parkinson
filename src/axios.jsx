@@ -15,7 +15,7 @@ export const formDataRequest = axios.create({
     'Content-Type': 'multipart/form-data',
   },
 });
-formDataRequest.defaults.timeout = 2500;
+// formDataRequest.defaults.timeout = 2500;
 
 export const formDataRequestNoAuth = axios.create({
   baseURL: Host,

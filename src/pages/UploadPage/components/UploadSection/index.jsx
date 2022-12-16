@@ -21,6 +21,7 @@ function UploadSection() {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const hiddenFileInput = useRef(null);
   const sessionToken = useSelector((store) => store.auth.sessionToken);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const HandleSelectFile = () => {
     hiddenFileInput.current.click();
@@ -73,6 +74,9 @@ function UploadSection() {
         headers: {
           'Authorization': `Bearer ${sessionToken}`,
         },
+        onUploadProgress: (ProgressEvent) => setUploadProgress(Math.round(
+          (ProgressEvent.loaded * 100) / ProgressEvent.total,
+        )),
       })
         .then((res) => {
           setSubmitDisabled(false);
@@ -129,6 +133,7 @@ function UploadSection() {
         >
           送出資料
         </SubmitButtonLoading>
+        <div>{`progress: ${uploadProgress}`}</div>
       </div>
     </div>
   );

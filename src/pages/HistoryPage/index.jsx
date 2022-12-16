@@ -1,10 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState, useRef, useEffect,
+} from 'react';
 import './index.scss';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import PopUp from '../../components/PopUp';
 import { jsonRequest } from '../../axios';
+import { URLgenerate } from '../../constant';
+import { setVideoList } from '../../stores/videoSlice';
 
 // icon
 import { Male, Female, Filter } from '../../components/Icon';
@@ -29,7 +33,7 @@ function DefineGender(gender) {
 function ResultItem({ item }) {
   return (
     <Link className="result-item" to={`${item.video_id}`}>
-      <img className="result-item-thumbnail" src={item.thumbnail} alt="Thumbnail" />
+      <img className="result-item-thumbnail" src={URLgenerate(item.thumbnail_url)} alt="Thumbnail" />
       <div className="result-item-information">
         <div className="result-item-information-left">
           <div className="result-item-date">{item.date}</div>
@@ -49,13 +53,17 @@ function ResultItem({ item }) {
 
 function HistoryPage() {
   const sessionToken = useSelector((store) => store.auth.sessionToken);
-  const [historyItem, setHistoryItem] = useState([]);
+  const videoInfo = useSelector((store) => store.videoInfo.videoList);
+  const dispatch = useDispatch();
+  const [uploadProgress, setUploadProgress] = useState(0);
   const filterSelect = useRef();
-  const [filterItems, setFilterItems] = useState({
+  const filterInitial = {
     '受試者': [],
     '日期': [],
     '檢測項目': [],
-  });
+  };
+
+  const [filterItems, setFilterItems] = useState();
   const [popUpState, setPopUpState] = useState(false);
 
   useEffect(() => {
@@ -63,7 +71,7 @@ function HistoryPage() {
       headers: {
         'authorization': `Bearer ${sessionToken}`,
       },
-    }).then((res) => setHistoryItem(res.data));
+    }).then((res) => { dispatch(setVideoList(res.data)); });
   }, []);
 
   function handleFilterClick() {
@@ -73,25 +81,6 @@ function HistoryPage() {
   function handleFilterApply() {
     setPopUpState(false);
   }
-
-  const resultList = [
-    {
-      video_id: '19ij1nsa981kjxclf08',
-      thumbnail: 'https://i.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA',
-      detect: '手部震動',
-      gender: '男',
-      subject: 'Onando',
-      date: '2022-10-22',
-    },
-    {
-      video_id: '27422ss912381kjxcls',
-      thumbnail: 'https://i.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4',
-      detect: '尊敬你ㄟ',
-      gender: '女',
-      subject: '龍哥',
-      date: '2022-10-23',
-    },
-  ];
 
   return (
     <div>
@@ -124,7 +113,7 @@ function HistoryPage() {
           <div className="history-filter-items" />
         </div>
         <div className="history-item-list-container">
-          {historyItem.length === 0 ? <span style={{ color: '#4f4f4f', fontFamily: 'system-ui' }}>沒有紀錄</span> : historyItem.map((item) => (
+          {videoInfo.length === 0 ? <span style={{ color: '#4f4f4f', fontFamily: 'system-ui' }}>沒有紀錄</span> : videoInfo.map((item) => (
             <ResultItem
               key={item.video_id}
               item={item}

@@ -22,6 +22,12 @@ const isUserLogin = () => {
   return isLogin;
 };
 
+const LoginAndVideoListFecthed = () => {
+  const isLogin = useSelector((store) => store.auth.isLogin);
+  const videoList = useSelector((store) => store.videoInfo.videoList);
+  return isLogin && videoList;
+};
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -42,7 +48,7 @@ const router = createBrowserRouter([
   {
     path: '/history/:id',
     element: (
-      <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
+      <ProtectedRoute condition={LoginAndVideoListFecthed} redirectURL="/signin">
         <HistoryItemPage />
       </ProtectedRoute>
     ),
