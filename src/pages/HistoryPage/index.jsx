@@ -101,10 +101,11 @@ function HistoryPage() {
         <div className="filter-selector-title">
           <h3>過濾器</h3>
         </div>
-        <div className="filter-selector-content">
-          <select style={{ display: 'none' }} ref={filterSelect}>
+        <div className="filter-selector-content flex-row">
+          <select className="filter-selector" ref={filterSelect}>
             {Object.keys(filterItems).map((key) => <option>{key}</option>)}
           </select>
+          <input type="text" />
         </div>
         <div className="filter-selector-button">
           <button onClick={handleFilterApply} type="button">Apply Filter</button>

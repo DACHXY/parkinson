@@ -236,3 +236,10 @@
         background-color: #4f4f4f;
     }
 }
+
+.filter-selector {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 8px 16px;
+    border: transparentize($color: #000000, $amount: 0.7) 1px solid;
+}
