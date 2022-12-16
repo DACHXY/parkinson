@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import './index.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import PopUp from '../../components/PopUp';
 import { jsonRequest } from '../../axios';
@@ -55,7 +55,6 @@ function HistoryPage() {
   const sessionToken = useSelector((store) => store.auth.sessionToken);
   const videoInfo = useSelector((store) => store.videoInfo.videoList);
   const dispatch = useDispatch();
-  const [uploadProgress, setUploadProgress] = useState(0);
   const filterSelect = useRef();
   const filterInitial = {
     '受試者': [],

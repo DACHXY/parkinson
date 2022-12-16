@@ -18,6 +18,7 @@ function SignUpPage() {
   const usernameLengthLimit = 4;
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [submitDisable, setSubmitDisable] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [passwordAgain, setPasswordAgain] = useState('');
@@ -57,6 +58,7 @@ function SignUpPage() {
       const formData = new FormData();
       formData.append('username', account);
       formData.append('password', password);
+      formData.append('email', email);
       formDataRequestNoAuth.post('/auth/signup', formData)
         .then((res) => {
           dispatch(setSessionToken(res.data.access_token));
@@ -86,6 +88,7 @@ function SignUpPage() {
             <div className={`error-message ${errMessage && 'error-message-animation-start'}`}>{errMessage}</div>
             <Link className="alternative-link" to="/signin?next=/upload">已經擁有帳號 ?</Link>
             <AuthInputBar text="帳號" type="text" setState={[account, setAccount]} />
+            <AuthInputBar text="電子郵箱" type="text" setState={[email, setEmail]} />
             <AuthInputBar text="密碼" type="password" setState={[password, setPassword]} />
             <AuthInputBar text="確認密碼" type="password" setState={[passwordAgain, setPasswordAgain]} />
           </section>

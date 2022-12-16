@@ -8,17 +8,17 @@ import { URLgenerate } from '../../../constant';
 import { TitleInputbar } from '../../../components/Input';
 
 function HistoryItemPage() {
-  const { id } = useParams();
+  const { videoId } = useParams();
   const sessionToken = useSelector((store) => store.auth.sessionToken);
   const videoInfo = useSelector((store) => store.videoInfo.videoList
-    .find((item) => item.video_id === id));
+    .find((item) => item.video_id === videoId));
 
-  const [date, setDate] = useState(videoInfo);
-  const [subject, setSubject] = useState(videoInfo);
-  const [gender, setGender] = useState(videoInfo);
+  const [date, setDate] = useState(videoInfo.date);
+  const [subject, setSubject] = useState(videoInfo.subject);
+  const [gender, setGender] = useState(videoInfo.gender);
 
   const handleDelete = () => {
-    jsonRequest.delete(`subject/delete/video?video_id=${id}`, {
+    jsonRequest.delete(`subject/delete/video?video_id=${videoId}`, {
       headers: {
         'Authorization': `Bearer ${sessionToken}`,
       },
@@ -29,8 +29,6 @@ function HistoryItemPage() {
   return (
     <div>
       <Header />
-      { videoInfo
-      && (
       <div className="result-frame">
         <button onClick={handleDelete} type="button">Delete Video</button>
         <img className="result-thumbnail" src={URLgenerate(videoInfo.thumbnail_url)} alt="Thumbnail" />
@@ -46,7 +44,6 @@ function HistoryItemPage() {
           </section>
         </section>
       </div>
-      )}
     </div>
   );
 }

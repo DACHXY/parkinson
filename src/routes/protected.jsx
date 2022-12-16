@@ -1,5 +1,7 @@
 import React from 'react';
-import { Navigate, useLocation, Link } from 'react-router-dom';
+import {
+  Navigate, useLocation, Link, useNavigate,
+} from 'react-router-dom';
 
 import PopUp from '../components/PopUp';
 
@@ -16,6 +18,17 @@ function ProtectedRoute({ condition, redirectURL, children }) {
           <Link className="pop-up-button" to="/home">回到首頁</Link>
         </div>
       </PopUp>
+    );
+  }
+  return children;
+}
+
+export function ProtectedRouteRedirect({
+  condition, message, redirectURL, children,
+}) {
+  if (!condition()) {
+    return (
+      <Navigate to={redirectURL} replace />
     );
   }
   return children;

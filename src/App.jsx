@@ -13,9 +13,10 @@ import SignUpPage from './pages/AuthPage/SignUp';
 import Dashboard from './pages/Dashboard';
 import HistoryPage from './pages/HistoryPage';
 import HistoryItemPage from './pages/HistoryPage/HistoryItemPage';
+import VerifyPage from './pages/AuthPage/Verify';
 
 // routes
-import ProtectedRoute from './routes/protected';
+import ProtectedRoute, { ProtectedRouteRedirect } from './routes/protected';
 
 const isUserLogin = () => {
   const isLogin = useSelector((store) => store.auth.isLogin);
@@ -46,11 +47,11 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/history/:id',
+    path: '/history/:videoId',
     element: (
-      <ProtectedRoute condition={LoginAndVideoListFecthed} redirectURL="/signin">
+      <ProtectedRouteRedirect condition={LoginAndVideoListFecthed} redirectURL="/history">
         <HistoryItemPage />
-      </ProtectedRoute>
+      </ProtectedRouteRedirect>
     ),
   },
   {
@@ -79,6 +80,12 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUpPage />,
+  },
+  {
+    path: '/verify',
+    element: (
+      <VerifyPage />
+    ),
   },
 ]);
 
