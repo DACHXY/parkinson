@@ -207,3 +207,32 @@
         }
     }
 }
+
+.result-item-gender {
+    &-male {
+        padding: 4px 6px;
+        font-family: system-ui;
+        font-weight: 600;
+        color: #fff;
+        border-radius: 50%;
+        background-color: rgb(126, 126, 255);
+    }
+
+    &-female {
+        padding: 4px 6px;
+        font-family: system-ui;
+        font-weight: 600;
+        color: #fff;
+        border-radius: 50%;
+        background-color: rgb(253, 114, 114);
+    }
+
+    &-other {
+        padding: 4px 6px;
+        font-family: system-ui;
+        font-weight: 600;
+        color: #fff;
+        border-radius: 50%;
+        background-color: #4f4f4f;
+    }
+}

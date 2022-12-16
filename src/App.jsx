@@ -12,10 +12,10 @@ import SignInPage from './pages/AuthPage/SignIn';
 import SignUpPage from './pages/AuthPage/SignUp';
 import Dashboard from './pages/Dashboard';
 import HistoryPage from './pages/HistoryPage';
+import HistoryItemPage from './pages/HistoryPage/HistoryItemPage';
 
 // routes
 import ProtectedRoute from './routes/protected';
-import HistoryItemPage, { HistroyItemLoader } from './pages/HistoryPage/HistoryItemPage';
 
 const isUserLogin = () => {
   const isLogin = useSelector((store) => store.auth.isLogin);
@@ -41,7 +41,6 @@ const router = createBrowserRouter([
   },
   {
     path: '/history/:id',
-    loader: HistroyItemLoader,
     element: (
       <ProtectedRoute condition={isUserLogin} redirectURL="/signin">
         <HistoryItemPage />

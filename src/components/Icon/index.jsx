@@ -45,3 +45,24 @@ export function Filter({ className }) {
     </svg>
   );
 }
+
+export function Female({ className }) {
+  return (
+    <svg className={`${className && className}`} width="167" height="167" viewBox="0 0 167 167" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="84" cy="56" r="43" stroke="#FF9696" strokeWidth="14" />
+      <path d="M53 122H114" stroke="#FF9696" strokeWidth="12" strokeLinecap="round" />
+      <path d="M84 161V100" stroke="#FF9696" strokeWidth="12" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function Male({ className }) {
+  return (
+    <svg className={`${className && className}`} width="167" height="167" viewBox="0 0 167 167" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="73" cy="97" r="43" stroke="#96D3FF" strokeWidth="14" />
+      <path d="M102 64.8797L144.374 21" stroke="#96D3FF" strokeWidth="12" strokeLinecap="round" />
+      <path d="M83 21L144 21" stroke="#96D3FF" strokeWidth="12" strokeLinecap="round" />
+      <path d="M144 82V21" stroke="#96D3FF" strokeWidth="12" strokeLinecap="round" />
+    </svg>
+  );
+}
