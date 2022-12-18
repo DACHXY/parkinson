@@ -14,6 +14,8 @@ import Dashboard from './pages/Dashboard';
 import HistoryPage from './pages/HistoryPage';
 import HistoryItemPage from './pages/HistoryPage/HistoryItemPage';
 import VerifyPage from './pages/AuthPage/Verify';
+import ForgotPage from './pages/AuthPage/Forgot';
+import ChangePasswordPage from './pages/AuthPage/ChangePassword';
 
 // routes
 import ProtectedRoute, { ProtectedRouteRedirect } from './routes/protected';
@@ -82,9 +84,21 @@ const router = createBrowserRouter([
     element: <SignUpPage />,
   },
   {
+    path: '/verify/change',
+    element: (
+      <ChangePasswordPage />
+    ),
+  },
+  {
     path: '/verify',
     element: (
       <VerifyPage />
+    ),
+  },
+  {
+    path: '/forget',
+    element: (
+      <ForgotPage />
     ),
   },
 ]);

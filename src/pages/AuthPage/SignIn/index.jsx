@@ -4,7 +4,7 @@ import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import './index.scss';
 
 import Header from '../../../components/Header';
-import AuthInputBar from '../components/inputbar';
+import { AuthInputBar } from '../../../components/Input';
 import SubmitButtonLoading from '../../../components/Button';
 
 import { setIsLogin, setSessionToken } from '../../../stores/authSlice';
@@ -18,7 +18,6 @@ function SignInPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errMessage, setErrMessage] = useState();
-  const sessionToken = useSelector((store) => store.auth.sessionToken);
 
   const submitGate = () => {
     if (!account) {
@@ -49,8 +48,11 @@ function SignInPage() {
           if (err.message.includes('timeout')) {
             setErrMessage('伺服器未回應');
           }
-          if (err.message.includes('401')) {
+          if (err.response.status === 401) {
             setErrMessage('帳號或密碼錯誤');
+          }
+          if (err.response.data.detail.includes('email send')) {
+            setErrMessage('郵箱未驗證，已重新寄出驗證信');
           }
           setSubmitDisable(false);
         });
@@ -65,9 +67,12 @@ function SignInPage() {
           <h1 style={{ color: '#3f3f3f' }}>登入帳號</h1>
           <section className="auth-information-section">
             <div className={`error-message ${errMessage && 'error-message-animation-start'}`}>{errMessage}</div>
-            <Link className="alternative-link" to="/signup?next=/upload">還沒有帳號?</Link>
-            <AuthInputBar text="帳號" type="text" setState={[account, setAccount]} />
+            <AuthInputBar placeHolder="用戶名 或 電子郵件" text="帳號" type="text" setState={[account, setAccount]} />
             <AuthInputBar text="密碼" type="password" setState={[password, setPassword]} />
+            <div className="flex-row" style={{ gap: 40 }}>
+              <Link className="alternative-link" to="/signup?next=/upload">還沒有帳號?</Link>
+              <Link className="alternative-link" to="/forget">忘記密碼</Link>
+            </div>
           </section>
           <SubmitButtonLoading disabled={submitDisable} onClick={handleSubmit}>
             登入

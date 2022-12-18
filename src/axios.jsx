@@ -7,7 +7,7 @@ export const jsonRequest = axios.create({
     'Content-Type': 'application/json',
   },
 });
-jsonRequest.defaults.timeout = 2500;
+// jsonRequest.defaults.timeout = 2500;
 
 export const formDataRequest = axios.create({
   baseURL: Host,
@@ -23,4 +23,4 @@ export const formDataRequestNoAuth = axios.create({
     'Content-Type': 'multipart/form-data',
   },
 });
-formDataRequestNoAuth.defaults.timeout = 2500;
+formDataRequestNoAuth.defaults.timeout = 10000;

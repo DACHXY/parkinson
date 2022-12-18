@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { jsonRequest } from '../../../axios';
 import {
-  setUsername, setSessionToken, setIsLogin,
+  setUsername, setSessionToken, setIsLogin, setUser,
 } from '../../../stores/authSlice';
 
 function verifyScema(verifyState) {
@@ -18,21 +18,17 @@ function verifyScema(verifyState) {
   }
 }
 function VerifyPage() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get('token');
   const UserId = searchParams.get('user_id');
-  const sessionToken = useSelector((store) => store.auth.sessionToken);
   const [verifyState, setVerifyState] = useState(0);
 
   useEffect(() => {
     jsonRequest.get(`auth/verify?verify_token=${token}&user_id=${UserId}`)
       .then((res) => {
         setVerifyState(res.status);
-        console.log(res.data.access_token);
-        dispatch(setSessionToken(res.data.access_token));
-        dispatch(setUsername(res.data.username));
+        dispatch(setUser(res.data));
         dispatch(setIsLogin(true));
       })
       .catch((err) => err.response && setVerifyState(err.response.status));

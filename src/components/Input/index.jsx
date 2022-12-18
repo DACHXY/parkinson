@@ -25,4 +25,19 @@ export function TitleInputbar({
   );
 }
 
+export function AuthInputBar({
+  text, type, setState, placeHolder = '',
+}) {
+  const [value, setValue] = setState;
+  const hanldeOnChange = (event) => {
+    setValue(event.target.value);
+  };
+  return (
+    <div className="auth-input-bar-frame">
+      <span className="auth-input-bar-text">{text}</span>
+      <input placeholder={placeHolder} onChange={hanldeOnChange} value={value} className="auth-input-bar" type={type} />
+    </div>
+  );
+}
+
 export default Inputbar;

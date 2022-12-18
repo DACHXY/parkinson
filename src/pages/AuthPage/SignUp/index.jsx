@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import './index.scss';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { formDataRequestNoAuth } from '../../../axios';
 
 import Header from '../../../components/Header';
-import AuthInputBar from '../components/inputbar';
+import { AuthInputBar } from '../../../components/Input';
 import SubmitButtonLoading from '../../../components/Button';
+import PopUp from '../../../components/PopUp';
 
 // dispatch
 import {
-  setIsLogin, setUsername, setSessionToken,
+  setUser,
 } from '../../../stores/authSlice';
 
 function SignUpPage() {
@@ -20,16 +21,39 @@ function SignUpPage() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [submitDisable, setSubmitDisable] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [passwordAgain, setPasswordAgain] = useState('');
   const [errMessage, setErrMessage] = useState('');
+  const [emailSent, setEmailSent] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const sessionToken = useSelector((store) => store.auth.sessionToken);
+
+  const handleError = async (err) => {
+    if (err.response?.data.detail) {
+      setErrMessage(err.response.data.detail);
+    }
+    if (err.response?.data.detail.includes('user exist')) {
+      setErrMessage('帳號已使用');
+    }
+    if (err.response?.data.detail.includes('email exist')) {
+      setErrMessage('電子郵件已使用');
+    }
+    if (err.message.includes('timeout')) {
+      setErrMessage('伺服器未回應');
+    }
+    setSubmitDisable(false);
+  };
 
   const submitGate = () => {
+    const regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/;
     if (!account) {
       setErrMessage('帳號不得為空');
+      return false;
+    }
+    if (!email) {
+      setErrMessage('電子郵件不得為空');
+      return false;
+    }
+    if (!regex.test(email)) {
+      setErrMessage('電子郵件格式錯誤 xxx@xxx.xxx');
       return false;
     }
     if (!password) {
@@ -61,36 +85,38 @@ function SignUpPage() {
       formData.append('email', email);
       formDataRequestNoAuth.post('/auth/signup', formData)
         .then((res) => {
-          dispatch(setSessionToken(res.data.access_token));
-          dispatch(setUsername(account));
-          dispatch(setIsLogin(true));
-          navigate(searchParams.get('next') ? searchParams.get('next') : '/');
+          if (res.status === 201) {
+            dispatch(setUser(res.data));
+            setEmailSent(true);
+          }
         })
-        .catch((err) => {
-          if (err.response?.data.detail) {
-            setErrMessage(err.response.data.detail);
-          }
-          if (err.message.includes('timeout')) {
-            setErrMessage('伺服器未回應');
-          }
-          setSubmitDisable(false);
-        });
+        .catch(handleError);
     }
   };
 
   return (
     <div>
+      { emailSent
+      && (
+        <PopUp className="popup-frame-button-only">
+          <h3>電子郵箱需要驗證</h3>
+          <div>驗證信已寄出</div>
+          <div className="pop-up-button-section">
+            <Link to="/signin" className="pop-up-button">好的</Link>
+          </div>
+        </PopUp>
+      )}
       <Header />
       <div className="container">
         <div className="panel">
           <h1 style={{ color: '#3f3f3f' }}>註冊帳號</h1>
           <section className="auth-information-section">
             <div className={`error-message ${errMessage && 'error-message-animation-start'}`}>{errMessage}</div>
-            <Link className="alternative-link" to="/signin?next=/upload">已經擁有帳號 ?</Link>
             <AuthInputBar text="帳號" type="text" setState={[account, setAccount]} />
             <AuthInputBar text="電子郵箱" type="text" setState={[email, setEmail]} />
             <AuthInputBar text="密碼" type="password" setState={[password, setPassword]} />
             <AuthInputBar text="確認密碼" type="password" setState={[passwordAgain, setPasswordAgain]} />
+            <Link className="alternative-link" to="/signin?next=/upload">已經擁有帳號 ?</Link>
           </section>
           <SubmitButtonLoading disabled={submitDisable} onClick={handleSubmit}>
             註冊
