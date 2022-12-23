@@ -40,15 +40,26 @@ function ArticlePage() {
         >
           {articleContent.Title}
         </h1>
-        <section style={{ display: 'flex', padding: '20px 40px' }}>
+        <section style={{
+          display: 'flex',
+          padding: '20px 45ch',
+          alignContent: 'center',
+          justifyContent: 'center',
+        }}
+        >
           <img
             style={{ borderRadius: '14px', height: '800px', objectFit: 'contain' }}
             src={articleContent.Image}
             alt=" "
           />
-          <div style={{ fontFamily: 'system-ui', fontSize: 26, padding: '16px 20px' }}>
-            {articleContent.Content}
-          </div>
+          {
+            articleContent.Content && (
+              <div style={{ fontFamily: 'system-ui', fontSize: 26, padding: '16px 20px' }}>
+                {articleContent.Content}
+              </div>
+            )
+          }
+
         </section>
       </div>
     </div>
