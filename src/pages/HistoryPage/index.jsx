@@ -41,6 +41,7 @@ function ResultItem({ item }) {
             {DefineGender(item.gender)}
             <div className="result-item-subject">{item.subject}</div>
           </section>
+          <div className="result-item-status">{item.left === '-1' ? '狀態: 處理中' : '狀態: 處理完成'}</div>
         </div>
         <div className="result-item-information-right">
           <div className="result-item-detct">{item.detect}</div>

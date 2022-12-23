@@ -16,6 +16,7 @@ import HistoryItemPage from './pages/HistoryPage/HistoryItemPage';
 import VerifyPage from './pages/AuthPage/Verify';
 import ForgotPage from './pages/AuthPage/Forgot';
 import ChangePasswordPage from './pages/AuthPage/ChangePassword';
+import ArticlePage from './pages/ArticlePage';
 
 // routes
 import ProtectedRoute, { ProtectedRouteRedirect } from './routes/protected';
@@ -99,6 +100,12 @@ const router = createBrowserRouter([
     path: '/forget',
     element: (
       <ForgotPage />
+    ),
+  },
+  {
+    path: '/article/:articleId',
+    element: (
+      <ArticlePage />
     ),
   },
 ]);
