@@ -7,7 +7,7 @@ import Header from '../../../components/Header';
 import { AuthInputBar } from '../../../components/Input';
 import SubmitButtonLoading from '../../../components/Button';
 
-import { setIsLogin, setSessionToken } from '../../../stores/authSlice';
+import { setIsLogin, setSessionToken, setUser } from '../../../stores/authSlice';
 import { formDataRequestNoAuth } from '../../../axios';
 
 function SignInPage() {
@@ -40,7 +40,7 @@ function SignInPage() {
       formData.append('password', password);
       formDataRequestNoAuth.post('/auth/jwt/token', formData)
         .then((res) => {
-          dispatch(setSessionToken(res.data.access_token));
+          dispatch(setUser(res.data));
           dispatch(setIsLogin(true));
           navigate(searchParams.get('next') ? searchParams.get('next') : '/');
         })
