@@ -111,7 +111,7 @@ function UploadSection() {
         )}
         <input
           type="file"
-          accept=".mp4, .avi"
+          accept=".mp4, .avi, .mov"
           ref={hiddenFileInput}
           onChange={HandleChange}
           style={{ display: 'none' }}

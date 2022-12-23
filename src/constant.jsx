@@ -1,6 +1,6 @@
 // export const IP = '192.168.137.179';
 export const IP = '140.123.105.112';
-export const PORT = '9488';
+export const PORT = '52696';
 
 const Host = `http://${IP}:${PORT}/`;
 
