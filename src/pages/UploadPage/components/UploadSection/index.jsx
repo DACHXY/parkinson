@@ -1,14 +1,19 @@
-import React, { useRef, useState, useReducer } from 'react';
+import React, {
+  useRef, useState, useReducer,
+} from 'react';
 import { Player } from 'video-react';
 import './index.scss';
 
 // icons
 import { useSelector } from 'react-redux';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Film } from '../../../../components/Icon';
 
 // components
 import InformationSection from '../InformationSection';
 import { formDataRequest } from '../../../../axios';
+import PopUp from '../../../../components/PopUp';
+
 // reducer
 import reducer, { initialState } from './reducer';
 import SubmitButtonLoading from '../../../../components/Button';
@@ -22,11 +27,11 @@ function UploadSection() {
   const hiddenFileInput = useRef(null);
   const sessionToken = useSelector((store) => store.auth.sessionToken);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [errMsg, setErrMsg] = useState('');
 
   const HandleSelectFile = () => {
     hiddenFileInput.current.click();
   };
-
   const HandleChange = (event) => {
     const fileUploaded = event.target.files[0];
     const previewURLCreated = URL.createObjectURL(fileUploaded);
@@ -34,29 +39,33 @@ function UploadSection() {
     setPreviewURL(previewURLCreated);
     setShowPreview(true);
   };
-
   const submitGate = () => {
     if (!fileSelected) {
+      setErrMsg('請選取檔案!');
       return false;
     }
     if (!state.detect) {
+      setErrMsg('請選取檢測項目!');
       return false;
     }
     if (!state.location) {
+      setErrMsg('請輸入地點!');
       return false;
     }
     if (!state.gender) {
+      setErrMsg('請輸入性別!');
       return false;
     }
     if (!state.name) {
+      setErrMsg('請輸入受試者姓名!');
       return false;
     }
     if (!state.date) {
+      setErrMsg('請輸入日期!');
       return false;
     }
     return true;
   };
-
   const handleSubmit = () => {
     if (submitGate()) {
       setSubmitDisabled(true);
@@ -87,55 +96,74 @@ function UploadSection() {
   };
 
   return (
-    <div className="upload-section-background">
-      <div className="upload-section-group">
-        <button
-          className="upload-button"
-          type="button"
-          onClick={HandleSelectFile}
-        >
-          <div>
-            <Film className="upload-icon" />
+    <>
+      { errMsg
+      && (
+        <PopUp className="popup-frame-button-only">
+          <h3 style={{ color: '#fa5c5c' }}>{errMsg}</h3>
+          <div className="pop-up-button-section">
+            <button type="button" className="pop-up-button" onClick={() => setErrMsg('')}>好的</button>
           </div>
-          <div className="upload-text">點擊上傳影片</div>
-        </button>
-        {previewURL && (
-        <Player
-          playsInline
-          src={previewURL}
-          fluid={false}
-          width={500}
-          height={300}
-          className="upload-preview"
-        />
-        )}
-        <input
-          type="file"
-          accept=".mp4, .avi, .mov"
-          ref={hiddenFileInput}
-          onChange={HandleChange}
-          style={{ display: 'none' }}
-        />
+        </PopUp>
+      )}
+      { submitDisabled
+      && (
+        <PopUp className="popup-frame-button-only">
+          <h3>上傳中</h3>
+          <ProgressBar variant="warning" style={{ width: '80%', height: '30px' }} animated label={`${uploadProgress}%`} now={uploadProgress} />
+          <div>請勿離開頁面</div>
+        </PopUp>
+      )}
+      <div className="upload-section-background">
+
+        <div className="upload-section-group">
+          <button
+            className="upload-button"
+            type="button"
+            onClick={HandleSelectFile}
+          >
+            <div>
+              <Film className="upload-icon" />
+            </div>
+            <div className="upload-text">點擊上傳影片</div>
+          </button>
+          {previewURL && (
+          <Player
+            playsInline
+            src={previewURL}
+            fluid={false}
+            width={500}
+            height={300}
+            className="upload-preview"
+          />
+          )}
+          <input
+            type="file"
+            accept=".mp4, .avi, .mov"
+            ref={hiddenFileInput}
+            onChange={HandleChange}
+            style={{ display: 'none' }}
+          />
+        </div>
+        <div className="lower-upload-section">
+          <button
+            className="reupload-button submit-button"
+            type="button"
+            disabled={!showPreview}
+            onClick={HandleSelectFile}
+          >
+            重新選擇檔案
+          </button>
+          <InformationSection reducer={[state, uploadDispatch]} />
+          <SubmitButtonLoading
+            disabled={submitDisabled}
+            onClick={handleSubmit}
+          >
+            送出資料
+          </SubmitButtonLoading>
+        </div>
       </div>
-      <div className="lower-upload-section">
-        <button
-          className="reupload-button submit-button"
-          type="button"
-          disabled={!showPreview}
-          onClick={HandleSelectFile}
-        >
-          重新選擇檔案
-        </button>
-        <InformationSection reducer={[state, uploadDispatch]} />
-        <SubmitButtonLoading
-          disabled={submitDisabled}
-          onClick={handleSubmit}
-        >
-          送出資料
-        </SubmitButtonLoading>
-        <div>{`progress: ${uploadProgress}`}</div>
-      </div>
-    </div>
+    </>
   );
 }
 

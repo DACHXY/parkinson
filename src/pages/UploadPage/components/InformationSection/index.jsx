@@ -42,7 +42,7 @@ function InformationSection({ reducer }) {
         <section className="left-section">
           <h2 style={{ paddingLeft: 10 }}> 基本資料 </h2>
           <li className="basic-information-list">
-            <InformationInput text="姓名" type="text" setState={[name, setName]} />
+            <InformationInput text="受試者" type="text" setState={[name, setName]} />
             <InformationInput text="性別" type="text" setState={[gender, setGender]} />
             <InformationInput text="拍攝日期" type="datetime-local" setState={[date, setDate]} />
             <InformationInput text="地點" type="text" setState={[location, setLocation]} />

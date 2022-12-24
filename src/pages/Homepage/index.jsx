@@ -15,7 +15,7 @@ function Home() {
 
   useEffect(() => {
     jsonRequest.get(ListActivityAPI)
-      .then((res) => { setActivities(res.data); console.log(res.data); })
+      .then((res) => { setActivities(res.data); })
       .catch((err) => console.log(err));
   }, []);
 

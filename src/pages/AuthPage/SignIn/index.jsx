@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import './index.scss';
+import { useCookies } from 'react-cookie';
 
 import Header from '../../../components/Header';
 import { AuthInputBar } from '../../../components/Input';
@@ -11,6 +12,7 @@ import { setIsLogin, setSessionToken, setUser } from '../../../stores/authSlice'
 import { formDataRequestNoAuth } from '../../../axios';
 
 function SignInPage() {
+  const [cookie, setCookie] = useCookies();
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [submitDisable, setSubmitDisable] = useState(false);
@@ -42,6 +44,7 @@ function SignInPage() {
         .then((res) => {
           dispatch(setUser(res.data));
           dispatch(setIsLogin(true));
+          setCookie('access_token', res.data.access_token, { path: '/' });
           navigate(searchParams.get('next') ? searchParams.get('next') : '/');
         })
         .catch((err) => {

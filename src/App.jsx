@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import { jsonRequest } from './axios';
+import { setUser } from './stores/authSlice';
 
 // component
 import Home from './pages/Homepage';
@@ -111,6 +114,14 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [cookies, setCookie] = useCookies(['access_token', 'username']);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (cookies.access_token) {
+      jsonRequest.get('/auth/getUser', { headers: { 'Authorization': cookies.access_token } })
+        .then((res) => dispatch(setUser(res.data)));
+    }
+  }, []);
   return (
     <RouterProvider router={router} />
   );
