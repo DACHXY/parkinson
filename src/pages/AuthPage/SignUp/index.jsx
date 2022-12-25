@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { formDataRequestNoAuth } from '../../../axios';
 
@@ -24,7 +24,6 @@ function SignUpPage() {
   const [passwordAgain, setPasswordAgain] = useState('');
   const [errMessage, setErrMessage] = useState('');
   const [emailSent, setEmailSent] = useState(false);
-  const dispatch = useDispatch();
 
   const handleError = async (err) => {
     if (err.response?.data.detail) {
@@ -86,7 +85,6 @@ function SignUpPage() {
       formDataRequestNoAuth.post('/auth/signup', formData)
         .then((res) => {
           if (res.status === 201) {
-            dispatch(setUser(res.data));
             setEmailSent(true);
           }
         })

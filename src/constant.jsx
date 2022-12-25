@@ -11,3 +11,4 @@ export function URLgenerate(url) {
 export default Host;
 
 export const ListActivityAPI = 'activity/list';
+export const GetUserAPI = 'auth/getUser';

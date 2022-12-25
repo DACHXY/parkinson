@@ -45,6 +45,7 @@ function SignInPage() {
           dispatch(setUser(res.data));
           dispatch(setIsLogin(true));
           setCookie('access_token', res.data.access_token, { path: '/' });
+          setCookie('refresh_token', res.data.refresh_token, { path: '/' });
           navigate(searchParams.get('next') ? searchParams.get('next') : '/');
         })
         .catch((err) => {

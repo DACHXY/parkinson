@@ -6,7 +6,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { jsonRequest } from './axios';
-import { setUser } from './stores/authSlice';
+import { setSessionToken, setUser } from './stores/authSlice';
 
 // component
 import Home from './pages/Homepage';
@@ -119,7 +119,11 @@ function App() {
   useEffect(() => {
     if (cookies.access_token) {
       jsonRequest.get('/auth/getUser', { headers: { 'Authorization': cookies.access_token } })
-        .then((res) => dispatch(setUser(res.data)));
+        .then((res) => {
+          dispatch(setUser(res.data));
+          dispatch(setSessionToken(cookies.access_token));
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
   return (

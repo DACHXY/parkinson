@@ -6,6 +6,7 @@ const initialState = {
   email: '',
   username: '',
   sessionToken: '',
+  refreshToken: '',
   isLogin: false,
 };
 
@@ -16,6 +17,7 @@ const authSlice = createSlice({
     setUser(state, action) {
       state.userId = action.payload.id;
       state.sessionToken = action.payload.access_token;
+      state.refreshToken = action.payload.refresh_token;
       state.isLogin = true;
       state.username = action.payload.username;
       state.email = action.payload.email;
@@ -39,6 +41,9 @@ const authSlice = createSlice({
       state.username = '';
       state.sessionToken = '';
       state.isLogin = false;
+      const [cookie, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
+      removeCookie('access_token', { path: '/' });
+      removeCookie('refresh_token', { path: '/' });
     },
   },
 });

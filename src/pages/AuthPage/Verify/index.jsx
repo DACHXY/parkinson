@@ -23,15 +23,19 @@ function VerifyPage() {
   const token = searchParams.get('token');
   const UserId = searchParams.get('user_id');
   const [verifyState, setVerifyState] = useState(0);
+  const [ifVerifySent, setIfVerifySent] = useState(false);
 
   useEffect(() => {
-    jsonRequest.get(`auth/verify?verify_token=${token}&user_id=${UserId}`)
-      .then((res) => {
-        setVerifyState(res.status);
-        dispatch(setUser(res.data));
-        dispatch(setIsLogin(true));
-      })
-      .catch((err) => err.response && setVerifyState(err.response.status));
+    if (!ifVerifySent) {
+      jsonRequest.get(`auth/verify?verify_token=${token}&user_id=${UserId}`)
+        .then((res) => {
+          setVerifyState(res.status);
+          dispatch(setUser(res.data));
+          dispatch(setIsLogin(true));
+        })
+        .catch((err) => err.response && setVerifyState(err.response.status));
+      setIfVerifySent(false);
+    }
   }, []);
 
   return (
