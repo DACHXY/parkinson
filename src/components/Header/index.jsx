@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { signOut } from '../../stores/authSlice';
 
-function MenuButton({ text, url, onClick }) {
+function MenuButton({
+  text, url, onClick, target,
+}) {
   return (
-    <Link onClick={onClick} to={url} className="menu-button">
+    <Link onClick={onClick} target={target} to={url} className="menu-button">
       <span className="menu-button-text">
         {text}
       </span>
@@ -30,10 +32,15 @@ function Header() {
   const auth = useSelector((store) => store.auth);
 
   const HeaderLeftItems = [
-    { text: '首頁', url: '/home', key: 0 },
-    { text: '檢測', url: '/upload', key: 1 },
-    { text: '紀錄', url: '/history', key: 2 },
-    { text: '關於', url: '/', key: 3 },
+    {
+      text: '首頁', url: '/home', target: '', key: 0,
+    },
+    {
+      text: '檢測', url: '/upload', target: '', key: 1,
+    },
+    {
+      text: '紀錄', url: '/history', target: '', key: 2,
+    },
   ];
 
   const handleLogout = () => {
@@ -47,8 +54,25 @@ function Header() {
       <div className="header-container">
         <div className="header-container-left">
           {HeaderLeftItems.map(
-            (item) => <MenuButton key={item.key} url={item.url} text={item.text} />,
+            (item) => (
+              <MenuButton
+                key={item.key}
+                url={item.url}
+                text={item.text}
+                target={item.target}
+              />
+            ),
           )}
+          <a
+            href="https://zh.wikipedia.org/wiki/%E5%B8%95%E9%87%91%E6%A3%AE%E6%B0%8F%E7%97%87"
+            target="_blank"
+            rel="noreferrer"
+            className="menu-button"
+          >
+            <span className="menu-button-text">
+              關於
+            </span>
+          </a>
         </div>
         <div className="header-container-mid"> </div>
         <div className="header-container-right">

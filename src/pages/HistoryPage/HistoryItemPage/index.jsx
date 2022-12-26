@@ -82,7 +82,7 @@ function HistoryItemPage() {
           </div>
           <section className="result-information">
             <section className="result-information-right">
-              <TitleInputbar type="date" text="日期" setState={[date, setDate]} />
+              <TitleInputbar type="datetime-local" text="日期" setState={[date, setDate]} />
               <TitleInputbar type="text" text="受試人" setState={[subject, setSubject]} />
               <TitleInputbar type="text" text="性別" setState={[gender, setGender]} />
               <TitleInputbar type="text" text="地點" setState={[location, setLocation]} />
