@@ -12,3 +12,6 @@ export default Host;
 
 export const ListActivityAPI = 'activity/list';
 export const GetUserAPI = 'auth/getUser';
+
+export const passwordLengthLimit = 6;
+export const usernameLengthLimit = 4;

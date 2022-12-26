@@ -8,14 +8,16 @@ function Inputbar() {
 }
 
 export function TitleInputbar({
-  text, type, setState, ref,
+  text, type, setState, ref, className, min, max,
 }) {
   const [value, setValue] = setState;
   return (
-    <div className="information-input" ref={ref}>
+    <div className={`information-input ${className && className}`} ref={ref}>
       <span>{text}</span>
       <div className="input-frame">
         <input
+          max={max && max}
+          min={min && min}
           type={type}
           onChange={(event) => setValue(event.target.value)}
           value={value}

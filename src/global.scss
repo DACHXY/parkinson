@@ -105,3 +105,16 @@ $succecced-color: #a6fa58;
         color: #8f8f8f;
     }
 }
+
+.page-frame {
+    padding-top: 200px;
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.page-title {
+    color: #4f4f4f;
+}

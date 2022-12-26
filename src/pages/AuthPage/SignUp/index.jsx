@@ -8,6 +8,7 @@ import Header from '../../../components/Header';
 import { AuthInputBar } from '../../../components/Input';
 import SubmitButtonLoading from '../../../components/Button';
 import PopUp from '../../../components/PopUp';
+import { passwordLengthLimit, usernameLengthLimit } from '../../../constant';
 
 // dispatch
 import {
@@ -15,8 +16,6 @@ import {
 } from '../../../stores/authSlice';
 
 function SignUpPage() {
-  const passwordLengthLimit = 6;
-  const usernameLengthLimit = 4;
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');

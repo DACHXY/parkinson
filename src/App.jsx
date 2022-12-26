@@ -122,8 +122,7 @@ function App() {
         .then((res) => {
           dispatch(setUser(res.data));
           dispatch(setSessionToken(cookies.access_token));
-        })
-        .catch((err) => console.log(err));
+        });
     }
   }, []);
   return (
