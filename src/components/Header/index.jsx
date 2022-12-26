@@ -62,7 +62,7 @@ function Header() {
               </>
             )
               : (
-                <MenuButton to="/signin" text="登入" />
+                <MenuButton url="/signin" text="登入" />
               )
           }
         </div>

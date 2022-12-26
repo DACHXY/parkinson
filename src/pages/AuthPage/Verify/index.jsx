@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { jsonRequest } from '../../../axios';
 import {
-  setUsername, setSessionToken, setIsLogin, setUser,
+  setIsLogin, setUser,
 } from '../../../stores/authSlice';
 
 function verifyScema(verifyState) {
@@ -13,12 +13,15 @@ function verifyScema(verifyState) {
       return <h1>電子郵箱驗證成功!</h1>;
     case (498):
       return <h1>電子郵箱驗證失敗 時間已失效!</h1>;
+    case (404):
+      return <h1>此驗證連結已失效</h1>;
     default:
       return <h1>驗證中</h1>;
   }
 }
 function VerifyPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get('token');
   const UserId = searchParams.get('user_id');
@@ -32,6 +35,9 @@ function VerifyPage() {
           setVerifyState(res.status);
           dispatch(setUser(res.data));
           dispatch(setIsLogin(true));
+          setTimeout(() => {
+            navigate('/signin');
+          }, 5000);
         })
         .catch((err) => err.response && setVerifyState(err.response.status));
       setIfVerifySent(false);

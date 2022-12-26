@@ -43,7 +43,7 @@ function Home() {
         {activities.length > 0
           && activities.filter((item) => item.Image !== null)
             .map(((item) => (
-              <Link to={`/article/${item.id}`}>
+              <Link key={item.id} to={`/article/${item.id}`}>
                 <Slide
                   key={item.id}
                   background={{

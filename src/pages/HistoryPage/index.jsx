@@ -43,6 +43,9 @@ function ResultItem({ item }) {
             <div className="result-item-subject">{item.subject}</div>
           </section>
           <div className="result-item-status">{item.left === '-1' ? '狀態: 處理中' : '狀態: 處理完成'}</div>
+          <div className="result-item-location">{`地點: ${item.location}`}</div>
+          <div className="result-item-result">{`左: ${item.left}`}</div>
+          <div className="result-item-result">{`右: ${item.right}`}</div>
         </div>
         <div className="result-item-information-right">
           <div className="result-item-detct">{item.detect}</div>
@@ -68,7 +71,6 @@ function HistoryPage() {
   const [popUpState, setPopUpState] = useState(false);
 
   useInterval(() => {
-    console.log('fetch data');
     jsonRequest.get('/subject/list/video', {
       headers: {
         'authorization': `Bearer ${sessionToken}`,

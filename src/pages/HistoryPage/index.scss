@@ -94,11 +94,21 @@
             transition: 0.3s;
             width: 240px;
         }
+
+        .result-item-status {
+            padding-bottom: 0px;
+            transition: 0.3s;
+        }
     }
 
     &:active {
         transform: scale(1);
     }
+}
+
+.result-item-status {
+    padding-bottom: 20px;
+    transition: 0.3s;
 }
 
 .result-item-thumbnail {
@@ -119,6 +129,7 @@
     &-left {
         display: flex;
         flex-direction: column;
+        overflow: hidden;
     }
 
     &-right {
