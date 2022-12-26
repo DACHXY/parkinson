@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import { Player } from 'video-react';
 import './index.scss';
+import { useNavigate } from 'react-router-dom';
 
 // icons
 import { useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ import reducer, { initialState } from './reducer';
 import SubmitButtonLoading from '../../../../components/Button';
 
 function UploadSection() {
+  const navigate = useNavigate();
   const [state, uploadDispatch] = useReducer(reducer, initialState);
   const [fileSelected, setFileSelected] = useState(null);
   const [previewURL, setPreviewURL] = useState('');
@@ -89,6 +91,7 @@ function UploadSection() {
       })
         .then((res) => {
           setSubmitDisabled(false);
+          navigate('/history');
         }).catch((err) => {
           setSubmitDisabled(false);
         });
@@ -110,8 +113,10 @@ function UploadSection() {
       && (
         <PopUp className="popup-frame-button-only">
           <h3>上傳中</h3>
-          <ProgressBar variant="warning" style={{ width: '80%', height: '30px' }} animated label={`${uploadProgress}%`} now={uploadProgress} />
-          <div>請勿離開頁面</div>
+          <div>
+            <ProgressBar variant="warning" style={{ width: '80%', height: '30px' }} animated label={`${uploadProgress}%`} now={uploadProgress} />
+          </div>
+          <div style={{ fontFamily: 'system-ui', color: '4f4f4f' }}>請勿離開頁面</div>
         </PopUp>
       )}
       <div className="upload-section-background">

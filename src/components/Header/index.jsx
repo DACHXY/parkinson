@@ -3,6 +3,7 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
 import { signOut } from '../../stores/authSlice';
 
 function MenuButton({ text, url, onClick }) {
@@ -24,6 +25,7 @@ function MenuButtonLogOut({ children }) {
 }
 
 function Header() {
+  const [cookie, setCookie, removeCookie] = useCookies();
   const dispatch = useDispatch();
   const auth = useSelector((store) => store.auth);
 
@@ -35,6 +37,8 @@ function Header() {
   ];
 
   const handleLogout = () => {
+    removeCookie('access_token', { path: '/' });
+    removeCookie('refresh_token', { path: '/' });
     dispatch(signOut());
   };
 
@@ -58,7 +62,7 @@ function Header() {
               </>
             )
               : (
-                <MenuButton url="/signin" text="登入" />
+                <MenuButton to="/signin" text="登入" />
               )
           }
         </div>

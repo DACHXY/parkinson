@@ -12,6 +12,7 @@ import { setVideoList } from '../../stores/videoSlice';
 
 // icon
 import { Male, Female, Filter } from '../../components/Icon';
+import { useInterval } from '../../hooks/useHook';
 
 function DefineGender(gender) {
   switch (gender) {
@@ -65,6 +66,15 @@ function HistoryPage() {
 
   const [filterItems, setFilterItems] = useState();
   const [popUpState, setPopUpState] = useState(false);
+
+  useInterval(() => {
+    console.log('fetch data');
+    jsonRequest.get('/subject/list/video', {
+      headers: {
+        'authorization': `Bearer ${sessionToken}`,
+      },
+    }).then((res) => { dispatch(setVideoList(res.data)); });
+  }, 5000);
 
   useEffect(() => {
     jsonRequest.get('/subject/list/video', {

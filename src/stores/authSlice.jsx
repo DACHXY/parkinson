@@ -37,13 +37,12 @@ const authSlice = createSlice({
     setVerified(state, action) {
       state.verified = action.payload;
     },
-    signOut(state) {
+    signOut(state, action) {
       state.username = '';
       state.sessionToken = '';
       state.isLogin = false;
-      const [cookie, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
-      removeCookie('access_token', { path: '/' });
-      removeCookie('refresh_token', { path: '/' });
+
+      console.log('cookies remove');
     },
   },
 });
