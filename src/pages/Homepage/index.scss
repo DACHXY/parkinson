@@ -1,16 +1,21 @@
 .parkinson-tutorial {
+    position: relative;
     padding: 20vh 20vh 5vh;
     margin: 0 0 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:#7E7E7E;
+    background-color: #fff;
+
+    p1 {
+        font-size: 24px;
+    }
 }
 
 .heroSlider-home {
-    padding: 0 20vh;
     height: auto;
+    padding-bottom: 100px;
 }
 
 .slide-title {
