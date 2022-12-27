@@ -20,6 +20,7 @@ import VerifyPage from './pages/AuthPage/Verify';
 import ForgotPage from './pages/AuthPage/Forgot';
 import ChangePasswordPage from './pages/AuthPage/ChangePassword';
 import ArticlePage from './pages/ArticlePage';
+import VerifyNewEmailPage from './pages/AuthPage/VerifyNewEmail';
 
 // routes
 import ProtectedRoute, { ProtectedRouteRedirect } from './routes/protected';
@@ -97,6 +98,12 @@ const router = createBrowserRouter([
     path: '/verify',
     element: (
       <VerifyPage />
+    ),
+  },
+  {
+    path: '/verify_new_email',
+    element: (
+      <VerifyNewEmailPage />
     ),
   },
   {

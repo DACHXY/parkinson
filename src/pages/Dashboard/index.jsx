@@ -9,6 +9,7 @@ import SubmitButtonLoading from '../../components/Button';
 import { formDataRequest, jsonRequest } from '../../axios';
 import PopUp from '../../components/PopUp';
 import { signOut } from '../../stores/authSlice';
+import { usernameLengthLimit } from '../../constant';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -21,29 +22,45 @@ function Dashboard() {
   const [errorMsg, setErrorMsg] = useState('');
   const [changePassword, setChangePassword] = useState(false);
   const [handleDeleteUserCheck, setHandleDeleteUserCheck] = useState(false);
+  const [email, setEmail] = useState(userInfo.email);
+
+  const submitGate = () => {
+    const regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/;
+    if (!regex.test(email)) {
+      setErrorMsg('電子郵箱格式不正確');
+      return false;
+    }
+    if (username.length < usernameLengthLimit) {
+      setErrorMsg(`帳號長度至少大於 ${usernameLengthLimit}`);
+      return false;
+    }
+    return true;
+  };
 
   const handleModifyUserData = () => {
-    setModifySubmit(true);
-    const formData = new FormData();
-    const information = {
-      username,
-      email: userInfo.email,
-    };
-    formData.append('information', JSON.stringify(information));
-    formDataRequest.post('user/user_personal', formData, {
-      headers: {
-        'authorization': `Bearer ${userInfo.sessionToken}`,
-      },
-    }).then((res) => {
-      if (res.status === 201) {
-        setSucceedPopup(true);
-      }
-      setModifySubmit(false);
-    }).catch((err) => {
-      setModifySubmit(false);
-      const error = err.response.data.detail.toString();
-      if (error === 'username exist') { setErrorMsg('使用者名稱已存在'); }
-    });
+    if (submitGate()) {
+      setModifySubmit(true);
+      const formData = new FormData();
+      const information = {
+        username,
+        email,
+      };
+      formData.append('information', JSON.stringify(information));
+      formDataRequest.post('user/user_personal', formData, {
+        headers: {
+          'authorization': `Bearer ${userInfo.sessionToken}`,
+        },
+      }).then((res) => {
+        if (res.status === 201) {
+          setSucceedPopup(true);
+        }
+        setModifySubmit(false);
+      }).catch((err) => {
+        setModifySubmit(false);
+        const error = err.response.data.detail.toString();
+        if (error === 'username exist') { setErrorMsg('使用者名稱已存在'); }
+      });
+    }
   };
 
   const handleChangePassword = () => {
@@ -125,6 +142,9 @@ function Dashboard() {
       {succeedPopup && (
         <PopUp className="popup-frame-button-only">
           <h1>修改成功!</h1>
+          <span>如果有修改電子郵箱，請點選驗證信中的鏈接，以完成更改</span>
+          <span>電子信箱:</span>
+          <span>{email}</span>
           <div className="pop-up-button-section">
             <button type="button" onClick={() => { setSucceedPopup(false); window.location.reload(); }} className="pop-up-button">好的</button>
           </div>
@@ -136,10 +156,7 @@ function Dashboard() {
         <section className="dashboard-content">
           <div className="dashboard-content-left">
             <section>
-              <div className="information-input">
-                <span>電子郵件</span>
-                <span style={{ fontSize: '20px' }}>{userInfo.email}</span>
-              </div>
+              <TitleInputbar className="dashboard-content-input" type="text" text="電子郵件" setState={[email, setEmail]} />
               <TitleInputbar className="dashboard-content-input" type="text" text="使用者名稱" setState={[username, setUsername]} />
             </section>
             <div className="flex-row" style={{ justifyContent: 'center', width: '100%' }}>
@@ -154,7 +171,6 @@ function Dashboard() {
           <div className="dashboard-content-right">
             <div className="flex-col" style={{ justifyContent: 'center', width: '100%', gap: '16px' }}>
               <SubmitButtonLoading
-                disabled={modifySubmit}
                 onClick={handleChangePassword}
               >
                 更改密碼

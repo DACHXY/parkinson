@@ -36,7 +36,7 @@ const authSlice = createSlice({
     setVerified(state, action) {
       state.verified = action.payload;
     },
-    signOut(state, action) {
+    signOut(state) {
       state.username = '';
       state.sessionToken = '';
       state.isLogin = false;
