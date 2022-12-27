@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { InputText } from 'primereact/inputtext';
 import './index.scss';
 
 // component
