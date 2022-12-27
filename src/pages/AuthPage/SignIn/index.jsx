@@ -58,7 +58,6 @@ function SignInPage() {
           if (err.response.data.detail.includes('email send')) {
             setErrMessage('郵箱未驗證，已重新寄出驗證信');
           }
-          console.log('submit');
           setSubmitDisable(false);
         });
     }

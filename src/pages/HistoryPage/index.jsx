@@ -123,8 +123,8 @@ function HistoryPage() {
       </PopUp>
       )}
       <Header />
-      <div className="history-frame">
-        <h1 className="history-title">檢測紀錄</h1>
+      <div className="page-frame">
+        <h1 className="page-title">檢測紀錄</h1>
         <div className="history-filter-section">
           <button onClick={handleFilterClick} type="button" className="history-filter-button">
             <Filter className="history-filter-icon" />

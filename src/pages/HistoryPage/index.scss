@@ -1,18 +1,5 @@
 @import "~/src/global.scss";
 
-.history-frame {
-    padding-top: 200px;
-    padding-left: 60px;
-    padding-right: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.history-title {
-    color: #4f4f4f;
-}
-
 .history-filter-section {
     display: flex;
     flex-direction: row;
