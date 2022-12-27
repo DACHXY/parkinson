@@ -24,12 +24,15 @@ function Home() {
     <div>
       <Header />
 
-      <div className="container">
-        <div>各項測試請依以下規則拍攝影片</div>
+      <div className="parkinson-tutorial">
+        <h2>各項測試請依以下規則拍攝影片</h2>
         <p1>手指拍打 :拇指與食指保持接觸30秒</p1>
+        <br />
         <p1>手掌握和 : 從張開到握和30秒</p1>
+        <br />
         <p1>抬腳 :相互抬左腳和右腳30秒</p1>
-        <div>影片拍攝結束請點選上方檢測頁面上傳影片測試</div>
+        <br />
+        <h3>影片拍攝結束請點選上方檢測頁面上傳影片測試</h3>
       </div>
 
       <HeroSlider

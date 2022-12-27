@@ -1,16 +1,15 @@
-.container {
-    width: 40%;
-    //max-height: 10px;
-    margin: 20px auto 0;
+.parkinson-tutorial {
+    padding: 20vh 20vh 5vh;
+    margin: 0 0 10vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 25px;
-    background-color: aqua;
+    background-color:#7E7E7E;
 }
 
 .heroSlider-home {
-    padding: 10px 20ch;
+    padding: 0 20vh;
     height: auto;
 }
 
