@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { InputText } from 'primereact/inputtext';
 import './index.scss';
 
 // component
@@ -22,8 +23,17 @@ function Home() {
   return (
     <div>
       <Header />
+
+      <div className="container">
+        <div>各項測試請依以下規則拍攝影片</div>
+        <p1>手指拍打 :拇指與食指保持接觸30秒</p1>
+        <p1>手掌握和 : 從張開到握和30秒</p1>
+        <p1>抬腳 :相互抬左腳和右腳30秒</p1>
+        <div>影片拍攝結束請點選上方檢測頁面上傳影片測試</div>
+      </div>
+
       <HeroSlider
-        height={800}
+        height="75vh"
         className="heroSlider-home"
         autoplay
         controller={{

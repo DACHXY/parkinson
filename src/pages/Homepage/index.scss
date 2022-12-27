@@ -1,5 +1,16 @@
+.container {
+    width: 40%;
+    //max-height: 10px;
+    margin: 20px auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    background-color: aqua;
+}
+
 .heroSlider-home {
-    padding: 200px 20ch;
+    padding: 10px 20ch;
     height: auto;
 }
 
