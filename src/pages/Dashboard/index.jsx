@@ -27,6 +27,7 @@ function Dashboard() {
     const formData = new FormData();
     const information = {
       username,
+      email: userInfo.email,
     };
     formData.append('information', JSON.stringify(information));
     formDataRequest.post('user/user_personal', formData, {
