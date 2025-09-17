@@ -1,20 +1,9 @@
-# Getting Started with Create React App
+# This is a web application for Parkinson detection
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation
 
-## Available Scripts
+### Docker
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### Host Ip
-
-See ./src/constant.jsx
-
+```bash
+docker compose up -d
+```
