@@ -1,0 +1,37 @@
+@import '~/src/global.scss';
+
+.dashboard-frame {
+    align-items: center;
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: 1;
+    justify-content: center;
+    align-items: flex-start;
+    width: fit-content;
+    gap: 40px;
+
+    &-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: fit-content;
+        gap: 40px;
+    }
+
+    &-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: fit-content;
+        gap: 40px;
+    }
+}
+
+.dashboard-content-input {
+    width: 400px;
+}

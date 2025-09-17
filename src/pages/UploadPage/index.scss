@@ -1,0 +1,13 @@
+@import "~/src/global.scss";
+
+.upload-page {
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+.upload-container {
+    display: flex;
+    align-content: center;
+    transition: 0.3s;
+}

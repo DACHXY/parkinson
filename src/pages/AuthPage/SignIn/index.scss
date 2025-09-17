@@ -1,0 +1,66 @@
+@import '~/src/global.scss';
+
+@keyframes showUp {
+    0% {
+        @include shadowDrop(0.0);
+        transform: scale(1);
+    }
+
+    45% {
+        @include shadowDrop(0.2);
+        transform: scale(1.5);
+
+    }
+
+    100% {
+        @include shadowDrop(0.0);
+        transform: scale(1);
+    }
+}
+
+
+.container {
+    padding-top: 200px;
+    padding-bottom: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .panel {
+        width: 70%;
+        background-color: #fff;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 60px 0px;
+        gap: 40px;
+        @include panel3D();
+    }
+
+    .auth-information-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 14px;
+        width: 50%;
+    }
+}
+
+.alternative-link {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: $error-color;
+    position: relative;
+    border-radius: 10px;
+    padding: 6px 10px;
+
+    &-animation-start {
+        animation: showUp 0.5s ease-out;
+    }
+}

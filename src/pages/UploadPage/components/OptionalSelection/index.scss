@@ -1,0 +1,40 @@
+@import "~/src/global.scss";
+
+.optional-selection-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    transition: 0.3s;
+    border-radius: 12px;
+    padding: 10px 20px;
+    width: 100%;
+    @include normalMediumFont();
+    font-weight: 600;
+    color: #ffffff;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+        transition: 0.3;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        transform: scale(1.115);
+    }
+}
+
+.optional-seclction-button-frame {
+    width: 80%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.optional-selection-checked {
+    background-color: #7bf363;
+    transition: 0.3s;
+}
+
+.optional-selection-unchecked {
+    background-color: #fff;
+    color: #f75d5d;
+    transition: 0.3s;
+}

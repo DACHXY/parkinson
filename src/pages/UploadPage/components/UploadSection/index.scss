@@ -1,0 +1,107 @@
+@import '~video-react/styles/scss/video-react';
+@import '~/src/global.scss';
+
+$upload-button-frame-width: 500px;
+
+@keyframes uploadHoverUpDownAnimation {
+    0% {
+        -webkit-transform: translate(0, 0);
+    }
+
+    40% {
+        -webkit-transform: translate(0, -20px);
+    }
+
+    100% {
+        -webkit-transform: translate(0, 0);
+    }
+}
+
+.upload-section-background {
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 200px;
+    padding-bottom: 200px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.upload-section-group {
+    position: relative;
+    display: flex;
+
+    .upload-button {
+        background: #fff;
+        border-style: dotted;
+        border-radius: 16px;
+        padding: 0;
+        border: 0;
+        cursor: pointer;
+        width: 500px;
+        height: 300px;
+        z-index: 1;
+        transition: 0.3s;
+        @include panel3D();
+        @include mediumFont();
+
+        .upload-icon {
+            transition: 0.3s;
+        }
+
+        &:hover {
+            transform: scale(1.115);
+            transition: 0.3s;
+
+            .upload-icon {
+                animation: uploadHoverUpDownAnimation 0.3s backwards;
+            }
+        }
+
+        &:active {
+            transform: scale(0.95);
+            transition: 0.3s;
+        }
+    }
+
+    .upload-preview {
+        border-radius: 16px;
+        position: absolute;
+        transition: 0.3s;
+        z-index: 2;
+        width: 300px;
+        height: 300px;
+    }
+}
+
+.lower-upload-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+
+    .reupload-button {
+        @include buttonSmall();
+
+        &:disabled {
+            @include shadowDrop(0);
+            color: #bfbfbf;
+            cursor: default;
+        }
+    }
+}
+
+.hidden {
+    display: none;
+    transition: 0.3s;
+}
+
+.upload-icon {
+    color: #4f4f4f;
+    width: 30%;
+    height: 30%;
+}

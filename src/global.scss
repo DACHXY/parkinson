@@ -1,0 +1,120 @@
+$dark-color: #646464;
+$light-color: #ffffff;
+$error-color: #fa5c5c;
+$yellow-color: #ffbd17;
+$succecced-color: #a6fa58;
+
+@keyframes LoadingBorder {
+    0% {
+        outline-offset: 0px;
+    }
+
+    100% {
+        outline-offset: 20px;
+    }
+}
+
+@mixin shadowDrop($shadowInt) {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, $shadowInt);
+}
+
+@mixin panel3D() {
+    box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@mixin buttonSmall() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0px 14px;
+    border-radius: 6px;
+    border-style: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    @include normalFont();
+}
+
+@mixin normalFont() {
+    color: #4f4f4f;
+    font-size: 16px;
+}
+
+@mixin normalMediumFont() {
+    color: #4f4f4f;
+    font-size: 24px;
+}
+
+@mixin mediumFont() {
+    color: #4f4f4f;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.btn-no-style {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background-color: #fff;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 0;
+    @include mediumFont();
+    @include shadowDrop(0.2);
+
+    &:enabled {
+        &:hover {
+            box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+
+        &:active {
+            background-color: #ffbd17;
+            color: #fff;
+            transform: scale(0.95);
+        }
+    }
+
+    &:disabled {
+        cursor: default;
+        @include shadowDrop(0);
+        color: #8f8f8f;
+    }
+}
+
+.page-frame {
+    padding-top: 200px;
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.page-title {
+    color: #4f4f4f;
+}

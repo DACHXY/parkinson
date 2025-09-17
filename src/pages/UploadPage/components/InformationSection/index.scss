@@ -1,0 +1,34 @@
+@import '~/src/global.scss';
+
+.optional-selection-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.selection-frame {
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.left-section {
+    flex-grow: 1;
+}
+
+.right-section {
+    flex-grow: 1;
+}
+
+.information-section {
+    transition: 0.3s;
+    min-width: 45%;
+    max-width: 60%;
+}
+
+.basic-information-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+}
